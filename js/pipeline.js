@@ -399,14 +399,14 @@ function proceednew() {
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
             type: 'POST',
-            contentType:"application/json",
-            dataType:"json",
-            data:JSON.stringify({"plumber":$('#pipelinename').val()}),
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({"plumber": $('#pipelinename').val()}),
             success: function (response) {
-               if(response.status == 'succesful'){
+                if (response.status == 'succesful') {
                     $('#create-pipeline').dialog('open');
-                    
-               }
+
+                }
             }
         });
         $('#jsonload').css('display', 'block')
@@ -425,4 +425,9 @@ function addinputs() {
         $('#dialog_simple').dialog('open');
     }
     return false;
+}
+
+function addmoreinputs() {
+
+
 }
