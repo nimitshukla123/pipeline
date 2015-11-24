@@ -405,14 +405,18 @@ function proceednew() {
             success: function (response) {
                 if (response.status == 'succesful') {
                     $('#create-pipeline').dialog('open');
-
+                    $('#jsonload').css('display', 'block')
+                    $('#overviewbox').css('display', 'block')
+                    $('#submitbox').css('display', 'block')
+                    $('#pipelinenameset').html('<b>' + $('#pipelinename').val() + '</b>');
+                } else if (response.status == 'Failed') {
+                    alert('Unable to create the plumber');
+                } else {
+                    alert('Unable to create the plumber! please try after some time');
                 }
             }
         });
-        $('#jsonload').css('display', 'block')
-        $('#overviewbox').css('display', 'block')
-        $('#submitbox').css('display', 'block')
-        $('#pipelinenameset').html('<b>' + $('#pipelinename').val() + '</b>');
+
     }
 }
 
