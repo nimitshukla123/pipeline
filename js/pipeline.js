@@ -110,25 +110,21 @@ function processPlumber(element) {
     $('#select-pipeline-chart').hide();
     //element.nextElementSibling.value=element.value;
     if (element.name == 'plumber_name_select') {
-//element.nextElementSibling.value=element.options[element.selectedIndex].innerHTML;;
-//                    $.ajax({
-//                        url: '/plumberPipelineView/' + element.value,
-//                        type: 'GET',
-//                        dataType: 'json',
-//                        success: function (json) {
-//                            $.each(json, function (i, optionHtml) {
-//                                //console.log(optionHtml)
-//                                //$('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
-//                            });
-//                            drawChart(json);
-//                        }
-//                    });
-        var json = [{"child": "CCCC", "parent": "brandnew pipeline"}, {"child": "Noname", "parent": "brandnew pipeline"}, {"child": "", "parent": "CCCC"}, {"child": "NewChild", "parent": "CCCC"}];
-        $.each(json, function (i, optionHtml) {
-            //console.log(optionHtml)
-            $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+        element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
+        $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+                $.each(json, function (i, optionHtml) {
+                    //console.log(optionHtml)
+                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+                });
+                drawChart(json);
+            }
         });
-        drawChart(json);
+//        var json = [{"child": "CCCC", "parent": "brandnew pipeline"}, {"child": "Noname", "parent": "brandnew pipeline"}, {"child": "", "parent": "CCCC"}, {"child": "NewChild", "parent": "CCCC"}];
     }
     if (element.name == 'plumber_select') {
 
@@ -398,8 +394,21 @@ function addjoinrow() {
 function proceednew() {
     if (!$('#pipelinename').val()) {
 
-        alert('Please Enter Pipeline Name')
+        alert('Please Enter Pipeline Name');
     } else {
+        $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
+            type: 'POST',
+            contentType:"application/json",
+            dataType:"json",
+            data:JSON.stringify({"plumber":$('#pipelinename').val()}),
+            success: function (response) {
+               if(response.status == 'succesful'){
+                    $('#create-pipeline').dialog('open');
+                    
+               }
+            }
+        });
         $('#jsonload').css('display', 'block')
         $('#overviewbox').css('display', 'block')
         $('#submitbox').css('display', 'block')

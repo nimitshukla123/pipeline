@@ -572,7 +572,18 @@
                                 <div class="hr hr-12 hr-double"></div>
 
 
-                             
+
+
+                            </div>
+                            <div id="create-pipeline" title="add new pipeline">
+                                <p>
+                                    Pipeline has been successfully added.
+                                </p>
+
+                                <div class="hr hr-12 hr-double"></div>
+
+
+
 
                             </div>
 
@@ -880,7 +891,30 @@
                     });
             });
                     $('#dialog_simple').dialog({
-                    autoOpen : false,
+            autoOpen : false,
+                    modal : true,
+                    title : "Pipeline added Successfully",
+                    buttons : [{
+                    html : "Cancel",
+                            "class" : "btn btn-default",
+                            click : function() {
+                            $(this).dialog("close");
+                            }
+                    }, {
+                    html : "<i class='fa fa-check'></i>&nbsp; OK",
+                            "class" : "btn btn-primary",
+                            click : function() {
+                            $(this).dialog("close");
+                                    $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#procnwpipe').prop('disabled', 'disabled')
+                                    $('#inputname').val('')
+                                    $('#parent_json_value').val('')
+                                    $('#analyze_parent').html('<code>*input JSON Payload</code>');
+                            }
+                    }]
+            });
+                    $('#create-pipeline').dialog({
+            autoOpen : false,
                     modal : true,
                     title : "Input Saved Successfully",
                     buttons : [{
@@ -894,14 +928,17 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled','disabled')
-                            $('#procnwpipe').prop('disabled','disabled')
-                            $('#inputname').val('')
-                            $('#parent_json_value').val('')
-                            $('#analyze_parent').html('<code>*input JSON Payload</code>');
+                                    $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#procnwpipe').prop('disabled', 'disabled')
+                                    $('#inputname').val('')
+                                    $('#parent_json_value').val('')
+                                    $('#analyze_parent').html('<code>*input JSON Payload</code>');
                             }
                     }]
-            });</script>
+            });
+                
+        
+        </script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="./js/jquery.js"></script>-->
 

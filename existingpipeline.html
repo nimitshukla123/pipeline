@@ -901,29 +901,18 @@
                     })();</script>
         <script>
                     $(document).ready(function () {
-            //                $.ajax({
-            //                    url: '/plumber',
-            //                    type: 'GET',
-            //                    dataType: 'json',
-            //                    success: function (json) {
-            //                        json = [{"id":12,"plumber":"Kiran"},{"id":2,"plumber":"New"},{"id":4,"plumber":"New2"},{"id":11,"plumber":"Shekar"},{"id":13,"plumber":"ShekarPipeline"},{"id":14,"plumber":"ShekarPipeline1"},{"id":7,"plumber":"ayx"},{"id":10,"plumber":"brandnew"},{"id":8,"plumber":"fdsf"},{"id":9,"plumber":"fdsgsgs"},{"id":3,"plumber":"new1"},{"id":6,"plumber":"newpl"},{"id":1,"plumber":"pl1"},{"id":5,"plumber":"plumbertest"}];
-            //
-            //
-            //                        $.each(json, function (i, optionHtml) {
-            //                            //$('#plumber').append(optionHtml['plumber_select']);                    
-            //                            $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-            //                            $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-            //                        });
-            //                    }
-            //                });
-            json = [{"id": 12, "plumber": "Kiran"}, {"id": 2, "plumber": "New"}, {"id": 4, "plumber": "New2"}, {"id": 11, "plumber": "Shekar"}, {"id": 13, "plumber": "ShekarPipeline"}, {"id": 14, "plumber": "ShekarPipeline1"}, {"id": 7, "plumber": "ayx"}, {"id": 10, "plumber": "brandnew"}, {"id": 8, "plumber": "fdsf"}, {"id": 9, "plumber": "fdsgsgs"}, {"id": 3, "plumber": "new1"}, {"id": 6, "plumber": "newpl"}, {"id": 1, "plumber": "pl1"}, {"id": 5, "plumber": "plumbertest"}];
-                    //
-                    //
-                    $.each(json, function (i, optionHtml) {
-                    //$('#plumber').append(optionHtml['plumber_select']);                    
-                    $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                            $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                    });
+                            $.ajax({
+                                url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function (json) {
+                                    $.each(json, function (i, optionHtml) {
+                                        //$('#plumber').append(optionHtml['plumber_select']);                    
+                                        $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                        $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                    });
+                                }
+                            });
             });</script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="./js/jquery.js"></script>-->
