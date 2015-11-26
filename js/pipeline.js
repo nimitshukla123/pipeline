@@ -444,3 +444,9 @@ function addinputexisting(){
     return false;
     
 }
+
+function proceedjoin(){
+     $('#joininputbox').css('display', 'block');
+     $('#selectinputsbox').css('display', 'block');
+    
+}
