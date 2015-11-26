@@ -424,8 +424,7 @@ function proceednew() {
 function addinputs() {
     if (!$('#inputname').val() || !$('#pipelinename').val() || !$('#parent_json_value').val()) {
         alert('Please Enter Input Name & JSON Payload')
-    }
-    else {
+    } else {
         $('#dialog_simple').dialog('open');
     }
     return false;
@@ -433,5 +432,15 @@ function addinputs() {
 
 function addmoreinputs() {
 
+    $('#jsonload').css('display', 'block');
+}
 
+function addinputexisting(){
+    if (!$('#parent_json_value').val()) {
+        alert('Please Enter JSON Payload')
+    } else {
+        $('#dialog_simple').dialog('open');
+    }
+    return false;
+    
 }
