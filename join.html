@@ -326,24 +326,21 @@
                     <li >
                         <a href="visualizepipeline.html"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Visualize Pipeline</span></a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#"><i class="fa fa-lg fa-fw fa-puzzle-piece"></i> <span class="menu-item-parent">Configure Pipeline</span></a>
-                        <ul style="display: block">
-                            <li>
-                                <a href="existingpipeline.html">Existing Pipeline</a>
-                            </li>
+                        <ul>
                             <li>
                                 <a href="newpipeline.html"><span class="menu-item-parent">Create New</span></a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="addinputs.html"><span class="menu-item-parent">Add Inputs</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
-                        <ul>
-                            <li>
+                        <ul  style="display: block">
+                            <li class="active">
                                 <a href="join.html">Join</a>
                             </li>
                             <li>
@@ -545,7 +542,7 @@
                                             <fieldset>
                                                 <section>
                                                     <label class="textarea"> 										
-                                                        <textarea class="form-control custom-scroll" rows="3" id="parent_json_value" name="parent_json_value" style="width: 456px; height: 150px;"></textarea>
+                                                        <textarea class="form-control custom-scroll" rows="3" id="joininputjson" name="joininputjson" style="width: 456px; height: 150px;"></textarea>
 
                                                     </label>
 
@@ -599,6 +596,16 @@
                                                     <option value="">Input 2</option>
                                                     <option value="">Input 3</option>
                                                     <option value="">Input 4</option>
+                                                </select>
+
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <label for="select-1" class="col-md-3 control-label ">JOIN Type</label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs()">
+                                                    <option value="">Left JOIN</option>
+                                                    <option value="">Right JOIN </option>
                                                 </select>
 
                                             </div>

@@ -339,6 +339,104 @@ $(function () { //shorthand document.ready function
             var count = 0;
             $.each(kv, function (i, key) {
                 htmlStr = htmlStr + "<tr> \
+                <td> " + i + " </td>\\n\
+                <input typpe ='hidden' name="+i+" value="+key+"/>\
+                            <td><select class='form-control' name=" + radioParent + count + ">\
+<option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
+                <td> <label / > " + key + " </label></td>\
+                </tr>"
+                count++;
+            });
+            htmlStr = htmlStr + "</tbody> \
+                        </table>";
+            document.getElementById(analyzeId).innerHTML = htmlStr
+            operStr = '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> \
+                                    <li><a href="#">Action</a></li> \
+                                    <li><a href="#">Another action</a></li> \
+                                    <li><a href="#">Something else here</a></li> \
+                                    <li><a href="#">Separated link</a></li> \
+                                </ul>';
+            document.getElementById(operationId).innerHTML = operStr
+            //console.log(htmlStr);
+        } else {
+            alert("Invalid JSON");
+        }
+    });
+    $('#StreamProcessor').on('change', function () {
+        if (this.value == "Storm") {
+            $("#storm").show();
+            $("#samza").hide();
+        } else if (this.value == "Samza") {
+            $("#storm").hide();
+            $("#samza").show();
+        } else if (this.value == "Spark") {
+            $("#storm").hide();
+            $("#samza").hide();
+        }
+    });
+    $('#joininputjson').on('change', function (e) { //use on if jQuery 1.7+
+//console.log("Element clicked " );
+//console.log(e.target.id);
+        console.log("Analyze id " + e.target.id);
+        var keys = [];
+        var values = [];
+        var kv = {};
+        var htmlStr1 = "<table class=\"table table-bordered\"> \
+                        <thead> \
+                        <th>Field</th> \
+                        <th>Enrich</th> \
+                        <th>Window</th> \
+                        <th>Machine Learn</th> \
+                        <th>Dedup</th> \
+                        </thead> \
+                        <tbody> \
+                        ";
+        var htmlStr = ' <table class=\"table table-hover\">\
+                        <thead> \
+                                <th>Select</th> \
+                                <th>Field</th> \
+                                <th>Data Type</th> \
+                                <th>Sample value</th> \
+                        </thead> \
+                        <tbody> \
+                        ';
+        e.preventDefault(); //prevent form from submitting
+        //var data = $("#form :input").serializeArray();
+        if (e.target.id === 'parent_json_value') {
+            var data = $('#parent_json_value').serializeArray();
+            var radioParent = 'parent_radio_';
+            var search = 'parent_search_';
+            var analyzeId = 'analyze_parent';
+            var operationId = 'operation_id';
+        } else if (e.target.id === 'child_json_value') {
+            var data = $('#child_json_value').serializeArray();
+            var radioParent = 'child_radio_';
+            var search = 'child_search_';
+            var analyzeId = 'analyze_child';
+            var operationId = 'operation_id';
+        } else if (e.target.id === 'joininputjson') {
+            var data = $('#joininputjson').serializeArray();
+            var radioParent = 'parent_radio_';
+            var search = 'parent_search_';
+            var analyzeId = 'analyze_parent';
+            var operationId = 'operation_id';
+        }
+        if (IsJsonString(data[0].value)) {
+//console.log(data[0].value); //use the console for debugging, F12 in Chrome, not alerts
+//var $records = $('#json-records'),
+            myRecords = JSON.parse(data[0].value);
+            recursiveGetProperty(myRecords, "", function (obj) {
+                // do something with it.
+                for (var attrname in obj) {
+                    kv[attrname] = obj[attrname];
+                }
+                keys.push(obj);
+            });
+            console.log(kv);
+            var count = 0;
+            $.each(kv, function (i, key) {
+                htmlStr = htmlStr + "<tr> \
+                            <td><input type='checkbox' name=" + radioParent + count + "/>\
                 <td> " + i + " </td>\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
