@@ -477,6 +477,8 @@
                                                 <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
                                                     <option value="">Select Pipeline</option>
                                                 </select>
+                                                <label data-original-title="email" for="email" class="glyphicon glyphicon-search" rel="tooltip" title=""></label>
+
 
                                             </div>
 
@@ -781,14 +783,14 @@
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-                                        if (!window.jQuery) {
+                                                if (!window.jQuery) {
                                         document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
                                         }
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script>
-                                        if (!window.jQuery.ui) {
+                                                if (!window.jQuery.ui) {
                                         document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
                                         }
         </script>
@@ -857,7 +859,7 @@
 
         <script type="text/javascript">
 
-                                        $(document).ready(function () {
+                                                $(document).ready(function () {
 
                                         /* DO NOT REMOVE : GLOBAL FUNCTIONS!
                                          *
@@ -890,24 +892,24 @@
                                          */
 
                                         pageSetUp();
-                                        /*
-                                         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                         * eg alert("my home function");
-                                         * 
-                                         * var pagefunction = function() {
-                                         *   ...
-                                         * }
-                                         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                         * 
-                                         * TO LOAD A SCRIPT:
-                                         * var pagefunction = function (){ 
-                                         *  loadScript(".../plugin.js", run_after_loaded);	
-                                         * }
-                                         * 
-                                         * OR
-                                         * 
-                                         * loadScript(".../plugin.js", run_after_loaded);
-                                         */
+                                                /*
+                                                 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                 * eg alert("my home function");
+                                                 * 
+                                                 * var pagefunction = function() {
+                                                 *   ...
+                                                 * }
+                                                 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                 * 
+                                                 * TO LOAD A SCRIPT:
+                                                 * var pagefunction = function (){ 
+                                                 *  loadScript(".../plugin.js", run_after_loaded);	
+                                                 * }
+                                                 * 
+                                                 * OR
+                                                 * 
+                                                 * loadScript(".../plugin.js", run_after_loaded);
+                                                 */
 
                                         })
 
@@ -916,27 +918,27 @@
         <!-- Your GOOGLE ANALYTICS CODE Below -->
         <script type="text/javascript">
                     var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-            _gaq.push(['_trackPageview']);
-            (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-            })();</script>
+                    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+                    _gaq.push(['_trackPageview']);
+                    (function () {
+                    var ga = document.createElement('script');
+                            ga.type = 'text/javascript';
+                            ga.async = true;
+                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(ga, s);
+                    })();</script>
         <script>
-            $(document).ready(function () {
+                    $(document).ready(function () {
             $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
-            $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
+                    $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
             var children = $(this).parent('li.parent_li').find(' > ul > li');
-            if (children.is(':visible')) {
+                    if (children.is(':visible')) {
             children.hide('fast');
-            $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+                    $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
             } else {
             children.show('fast');
-            $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+                    $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
             }})
                     $.ajax({
                     url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
@@ -946,7 +948,7 @@
                             $.each(json, function (i, optionHtml) {
                             //$('#plumber').append(optionHtml['plumber_select']);                    
                             $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                            $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                    $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                             });
                             }
                     });
@@ -955,7 +957,7 @@
         <script src="./js/jquery.js"></script>-->
         <script>
 
-            $('#dialog_simple').dialog({
+                    $('#dialog_simple').dialog({
             autoOpen : false,
                     modal : true,
                     title : "Pipeline added Successfully",
@@ -970,7 +972,7 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#pipelinename').prop('disabled', 'disabled')
                                     $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
@@ -978,7 +980,7 @@
                             }
                     }]
             });
-            $('#create-pipeline').dialog({
+                    $('#create-pipeline').dialog({
             autoOpen : false,
                     modal : true,
                     title : "Input Saved Successfully",
@@ -993,15 +995,14 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#pipelinename').prop('disabled', 'disabled')
                                     $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
                                     $('#analyze_parent').html('<code>*input JSON Payload</code>');
                             }
                     }]
-            });
-        </script>
+            });        </script>
         <script src="./js/jquery.dynatable.js"></script>
         <script src="./js/jsonvalidator.js"></script>
         <script src="./js/pipeline.js"></script>
