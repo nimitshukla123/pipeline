@@ -6,20 +6,20 @@
 
 
 function showChild() {
-    console.log("HERE IN showChild");
+//    console.log("HERE IN showChild");
 }
 
 function ProcessOperationChange(element) {
-    console.log("HERE IN OPERATION CHANGE")
-    console.log(element.name)
+//    console.log("HERE IN OPERATION CHANGE")
+//    console.log(element.name)
     if (element.value == 'existing') {
         $("#join_div").show();
         if (element.name == 'join_operation') {
             element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
             $("#child_payload").show();
             $("#analyze_child_div").show();
-            console.log("HHEERREEEEE");
-            console.log($('#plumber_select').val())
+//            console.log("HHEERREEEEE");
+//            console.log($('#plumber_select').val())
             $.ajax({
                 url: '/plumberPipeline/' + $('#plumber_select').val(),
                 type: 'GET',
@@ -31,7 +31,7 @@ function ProcessOperationChange(element) {
                         //console.log(optionHtml);
                         $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                     });
-                    console.log(json[0])
+//                    console.log(json[0])
                     // Adding existing json to the html
                     $('#child_json_value').val(atob(json[0]['data']));
                 }
@@ -45,7 +45,7 @@ function drawChart(json) {
     var payload = [];
     for (var i = 0; i < json.length; i++) {
         var obj = JSON.parse(JSON.stringify(json[i]));
-        console.log(obj);
+//        console.log(obj);
         var eachParentChild = [];
         for (var key in obj) {
 //var attrName = key;
@@ -56,7 +56,7 @@ function drawChart(json) {
         eachParentChild.push('');
         payload.push(eachParentChild);
     }
-    console.log(payload);
+//    console.log(payload);
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Child');
     data.addColumn('string', 'Parent');
@@ -89,7 +89,7 @@ function showChildAnalyzeDiv() {
 }
 
 function showChildDiv() {
-    console.log("HERE select_all")
+//    console.log("HERE select_all")
     $("#destination_group").show();
     $.ajax({
         url: '/plumberPipeline/',
@@ -117,11 +117,13 @@ function processPlumber(element) {
             type: 'GET',
             dataType: 'json',
             success: function (json) {
-                console.log(json);
+                    $('#pipeline-input-tree').empty();
                 $.each(json, function (i, optionHtml) {
-                    //console.log(optionHtml)
-                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+//                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+                    $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
+                    $('#pipeline-input-tree').append("<li><span><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
                 });
+                $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
                 drawChart(json);
             }
         });
@@ -187,7 +189,6 @@ function processPlumber(element) {
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
         $("#child_payload").show();
         $("#analyze_child_div").show();
-        console.log("HHEERREEEEE");
         console.log($('#plumber_select').val())
         $.ajax({
             url: '/plumberPipeline/' + $('#plumber_select').val(),
@@ -233,12 +234,12 @@ function processPlumber(element) {
 }
 
 
-$('select').change(function () {
-    var optionSelected = $(this).find("option:selected");
-    var valueSelected = optionSelected.val();
-    var textSelected = optionSelected.text();
-    console.log("Selected" + textSelected);
-});
+//$('select').change(function () {
+//    var optionSelected = $(this).find("option:selected");
+//    var valueSelected = optionSelected.val();
+//    var textSelected = optionSelected.text();
+//    console.log("Selected" + textSelected);
+//});
 function recursiveGetProperty(obj, prop, callback) {
     var keys = [];
     var values = [];
@@ -287,7 +288,7 @@ $(function () { //shorthand document.ready function
     $('#parent_json_value,#child_json_value').on('change', function (e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
-        console.log("Analyze id " + e.target.id);
+//        console.log("Analyze id " + e.target.id);
         var keys = [];
         var values = [];
         var kv = {};
@@ -335,7 +336,7 @@ $(function () { //shorthand document.ready function
                 }
                 keys.push(obj);
             });
-            console.log(kv);
+//            console.log(kv);
             var count = 0;
             $.each(kv, function (i, key) {
                 htmlStr = htmlStr + "<tr> \
@@ -377,7 +378,7 @@ $(function () { //shorthand document.ready function
     $('#joininputjson').on('change', function (e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
-        console.log("Analyze id " + e.target.id);
+//        console.log("Analyze id " + e.target.id);
         var keys = [];
         var values = [];
         var kv = {};
@@ -432,7 +433,7 @@ $(function () { //shorthand document.ready function
                 }
                 keys.push(obj);
             });
-            console.log(kv);
+//            console.log(kv);
             var count = 0;
             $.each(kv, function (i, key) {
                 htmlStr = htmlStr + "<tr> \
@@ -528,14 +529,14 @@ function addinputs() {
             type: 'POST',
             contentType: "application/json",
             dataType: "json",
-            data: JSON.stringify({"plumber":$('#pipelinename').val(),"title":$('#inputname').val(),"parentModel":"","data":$('#parent_json_value').val()}),
+            data: JSON.stringify({"plumber": $('#pipelinename').val(), "title": $('#inputname').val(), "parentModel": "", "data": JSON.parse($('#parent_json_value').val())}),
             success: function (response) {
-                if (response.status == 'succesful') {
+                if (response.status == 'successful') {
                     $('#dialog_simple').dialog('open');
                 } else if (response.status == 'Failed') {
                     alert('Unable to save inputs');
                 } else {
-                    alert('Unable to create the plumber! please try after some time');
+                    alert('Unable to save inputs! please try after some time');
                 }
             }
         });
