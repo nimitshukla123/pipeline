@@ -340,7 +340,7 @@ $(function () { //shorthand document.ready function
             $.each(kv, function (i, key) {
                 htmlStr = htmlStr + "<tr> \
                 <td> " + i + " </td>\
-                <input type ='hidden' name="+i+" value="+key+"/>\
+                <input type ='hidden' name="+i+" value="+key+" />\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
                 <td> <label / > " + key + " </label></td>\
