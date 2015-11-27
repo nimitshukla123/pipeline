@@ -108,6 +108,12 @@ function showChildDiv() {
 function processPlumber(element) {
 
     $('#select-pipeline-chart').hide();
+    
+    $('#submitbox').css('display','block');
+    $('#inputtreebox').css('display','block');
+    $('#chart-box').css('display','block');
+    $('#inputjsonbox').css('display','block');
+    
     //element.nextElementSibling.value=element.value;
     if (element.name == 'plumber_name_select') {
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
@@ -495,6 +501,9 @@ function proceednew() {
 
         alert('Please Enter Pipeline Name');
     } else {
+        $('#procnwpipe').css('display','none')
+        $('#submitbtnbox').css('display','block')
+        
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
             type: 'POST',

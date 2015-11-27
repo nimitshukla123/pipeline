@@ -482,8 +482,13 @@
                                             <!-- your contents here -->
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
-                                                    <a class="btn btn-warning" id="procnwpipe"  onclick="proceednew()"  href="javascript:void(0);">Proceed</a>
+                                                    <a style="float: right"  class="btn btn-warning" id="procnwpipe"  onclick="proceednew()"  href="javascript:void(0);">Proceed</a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div id="submitbtnbox" class="form-group" id="submitbox" style="display: none">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <a style="float: right" onclick="addinputs()" class="btn btn-labeled btn-success" href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
                                             </div>
                                         </div>
                                     </div>
@@ -496,11 +501,11 @@
                             <!-- end widget -->
 
                         </article>
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <article  id="jsonload" class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-pinkDark" id="wid-id-rgt" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false" data-widget-collapsed="true" 
+                                 data-widget-custombutton="false"  data-widget-deletebutton="false"  
                                  >
 
                                 <header>
@@ -508,7 +513,7 @@
                                 </header>
 
                                 <!-- widget div-->
-                                <div  id="jsonload">
+                                <div>
 
                                     <!-- widget edit box -->
                                     <div class="jarviswidget-editbox">
@@ -644,11 +649,7 @@
                                 <!-- end widget div -->
 
                             </div>                            <!-- end widget -->
-                            <div class="form-group" id="submitbox"style="display: block">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <a onclick="addinputs()" class="btn btn-labeled btn-success" href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
-                                </div>
-                            </div>
+
                         </article>
                         <!-- a blank row to get started -->
 
@@ -711,16 +712,16 @@
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-                                                if (!window.jQuery) {
-                                        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
-                                        }
+                                                            if (!window.jQuery) {
+                                                    document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+                                                    }
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script>
-                                                if (!window.jQuery.ui) {
-                                        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
-                                        }
+                                                            if (!window.jQuery.ui) {
+                                                    document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+                                                    }
         </script>
 
         <!-- IMPORTANT: APP CONFIG -->
@@ -787,59 +788,59 @@
 
         <script type="text/javascript">
 
-                                                $(document).ready(function () {
+                                                            $(document).ready(function () {
 
-                                        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-                                         *
-                                         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-                                         *
-                                         * // activate tooltips
-                                         * $("[rel=tooltip]").tooltip();
-                                         *
-                                         * // activate popovers
-                                         * $("[rel=popover]").popover();
-                                         *
-                                         * // activate popovers with hover states
-                                         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-                                         *
-                                         * // activate inline charts
-                                         * runAllCharts();
-                                         *
-                                         * // setup widgets
-                                         * setup_widgets_desktop();
-                                         *
-                                         * // run form elements
-                                         * runAllForms();
-                                         *
-                                         ********************************
-                                         *
-                                         * pageSetUp() is needed whenever you load a page.
-                                         * It initializes and checks for all basic elements of the page
-                                         * and makes rendering easier.
-                                         *
-                                         */
+                                                    /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                                                     *
+                                                     * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                                                     *
+                                                     * // activate tooltips
+                                                     * $("[rel=tooltip]").tooltip();
+                                                     *
+                                                     * // activate popovers
+                                                     * $("[rel=popover]").popover();
+                                                     *
+                                                     * // activate popovers with hover states
+                                                     * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                                                     *
+                                                     * // activate inline charts
+                                                     * runAllCharts();
+                                                     *
+                                                     * // setup widgets
+                                                     * setup_widgets_desktop();
+                                                     *
+                                                     * // run form elements
+                                                     * runAllForms();
+                                                     *
+                                                     ********************************
+                                                     *
+                                                     * pageSetUp() is needed whenever you load a page.
+                                                     * It initializes and checks for all basic elements of the page
+                                                     * and makes rendering easier.
+                                                     *
+                                                     */
 
-                                        pageSetUp();
-                                                /*
-                                                 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                                 * eg alert("my home function");
-                                                 * 
-                                                 * var pagefunction = function() {
-                                                 *   ...
-                                                 * }
-                                                 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                                 * 
-                                                 * TO LOAD A SCRIPT:
-                                                 * var pagefunction = function (){ 
-                                                 *  loadScript(".../plugin.js", run_after_loaded);	
-                                                 * }
-                                                 * 
-                                                 * OR
-                                                 * 
-                                                 * loadScript(".../plugin.js", run_after_loaded);
-                                                 */
+                                                    pageSetUp();
+                                                            /*
+                                                             * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                             * eg alert("my home function");
+                                                             * 
+                                                             * var pagefunction = function() {
+                                                             *   ...
+                                                             * }
+                                                             * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                             * 
+                                                             * TO LOAD A SCRIPT:
+                                                             * var pagefunction = function (){ 
+                                                             *  loadScript(".../plugin.js", run_after_loaded);	
+                                                             * }
+                                                             * 
+                                                             * OR
+                                                             * 
+                                                             * loadScript(".../plugin.js", run_after_loaded);
+                                                             */
 
-                                        })
+                                                    })
 
         </script>
 
@@ -857,7 +858,7 @@
                             s.parentNode.insertBefore(ga, s);
                     })();</script>
         <script>
-                   
+
                     $('#dialog_simple').dialog({
             autoOpen : false,
                     modal : true,
@@ -903,10 +904,7 @@
                                     $('#analyze_parent').html('<code>*input JSON Payload</code>');
                             }
                     }]
-            });
-                
-        
-        </script>
+            });        </script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="./js/jquery.js"></script>-->
 

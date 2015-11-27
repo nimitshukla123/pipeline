@@ -436,7 +436,7 @@
                     <div class="row">
 
                         <!-- NEW WIDGET START -->
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget jarviswidget-color-redLight" id="wid-id-visu" data-widget-deletebutton="false" data-widget-editbutton="false"
@@ -473,38 +473,38 @@
                                     <div class="widget-body  form-horizontal">
                                         <div class="form-group">
                                             <label for="select-1" class="col-md-4 control-label">Pipeline Name</label>
-                                             <div class="col-md-8">
-                                            <div class="icon-addon addon-md">
-                                                <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
-                                                    <option value="">Select Pipeline</option>
-                                                </select>
-                                                <label data-original-title="email" for="email" class="glyphicon glyphicon-search"  title=""></label>
-                                                <input type="hidden" name="plumbername" id="pipelinename" value=""/>
+                                            <div class="col-md-3">
+                                                <div class="icon-addon addon-md">
+                                                    <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
+                                                        <option value="">Select Pipeline</option>
+                                                    </select>
+                                                    <label data-original-title="email" for="email" class="glyphicon glyphicon-search"  title=""></label>
+                                                    <input type="hidden" name="plumbername" id="pipelinename" value=""/>
+                                                </div>
                                             </div>
-                                        </div>
 
                                         </div>
-                                        <div class="form-group"> <label for="select-1" class="col-md-4 control-label">Inputs</label>
+                                        <div id="inputtreebox" class="form-group" style="display: none"> <label for="select-1" class="col-md-4 control-label">Inputs</label>
                                             <div class="col-md-5">
                                                 <div class="tree smart-form">
                                                     <ul><li>
                                                             <span id="existingPipeline-name"></span>
                                                             <ul id="pipeline-input-tree">
-<!--                                                                <li>
-                                                                    <span><i class="icon-leaf"></i> Input 1</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span><i class="icon-leaf"></i>  Input 2</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span><i class="icon-leaf"></i>  Input 3</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span><i class="icon-leaf"></i>  Input 4</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="addmoreinput"><i class="icon-leaf"></i>Add <a onclick="addmoreinputs();" href="javascript:void(0);" class="btn btn-default btn-circle"><i class="fa fa-plus"></i></a></span>
-                                                                </li>-->
+                                                                <!--                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i> Input 1</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 2</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 3</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 4</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span class="addmoreinput"><i class="icon-leaf"></i>Add <a onclick="addmoreinputs();" href="javascript:void(0);" class="btn btn-default btn-circle"><i class="fa fa-plus"></i></a></span>
+                                                                                                                                </li>-->
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -521,17 +521,21 @@
                                                                                         <label data-original-title="email" for="email" class="glyphicon glyphicon-search" rel="tooltip" title=""></label>
                                                                                     </div>
                                                                                 </div>-->
+                                <div class="form-group" id="submitbox"style="display: none">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a style="float: right" class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
+                                    </div>
+                                </div>
                                     </div>
                                     <!-- end widget content -->
 
                                 </div>
                                 <!-- end widget div -->
-
                             </div>
                             <!-- end widget -->
 
                         </article>
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <article id="chart-box" class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget jarviswidget-color-pink" id="stage-select-box" data-widget-editbutton="false"
@@ -581,10 +585,7 @@
                         <!-- WIDGET END -->
 
                         <!--step-2-->
-
-                    </div>
-                    <div class="row">
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+<article id="inputjsonbox" class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-pinkDark" id="wid-id-rgt" data-widget-editbutton="false"
@@ -618,7 +619,7 @@
                                     </div>
                                     <!-- widget content -->
                                     <div class="widget-body">
-                                           <div class="row">
+                                        <div class="row">
                                             <label for="select-1" class="col-md-3 control-label ">Input Name</label>
                                             <div class="col-md-4">
                                                 <input type="text" class="form-control" placeholder="Input Name" id="inputname" name="inputname">
@@ -627,7 +628,7 @@
                                             </div>
                                         </div> 
                                         <legend>JSON Payload</legend>
-                                        
+
                                         <fieldset>
                                             <section>
                                                 <label class="textarea"> 										
@@ -650,6 +651,9 @@
                             <!-- end widget -->
 
                         </article>
+                    </div>
+                    <div class="row">
+                        
                         <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
                             <!-- Widget ID (each widget will need unique ID)-->
@@ -724,11 +728,7 @@
                                                              end widget div 
                             
                                                         </div>                             end widget -->
-                            <div class="form-group" id="submitbox"style="display: block">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <a class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
-                                </div>
-                            </div>
+
                         </article></div>
                     <!-- end row -->
 
@@ -793,16 +793,16 @@
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-                                        if (!window.jQuery) {
-                                        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
-                                        }
+                                                    if (!window.jQuery) {
+                                            document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+                                            }
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script>
-                                        if (!window.jQuery.ui) {
-                                        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
-                                        }
+                                                    if (!window.jQuery.ui) {
+                                            document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+                                            }
         </script>
 
         <!-- IMPORTANT: APP CONFIG -->
@@ -869,86 +869,86 @@
 
         <script type="text/javascript">
 
-                                        $(document).ready(function () {
+                                                    $(document).ready(function () {
 
-                                        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-                                         *
-                                         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-                                         *
-                                         * // activate tooltips
-                                         * $("[rel=tooltip]").tooltip();
-                                         *
-                                         * // activate popovers
-                                         * $("[rel=popover]").popover();
-                                         *
-                                         * // activate popovers with hover states
-                                         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-                                         *
-                                         * // activate inline charts
-                                         * runAllCharts();
-                                         *
-                                         * // setup widgets
-                                         * setup_widgets_desktop();
-                                         *
-                                         * // run form elements
-                                         * runAllForms();
-                                         *
-                                         ********************************
-                                         *
-                                         * pageSetUp() is needed whenever you load a page.
-                                         * It initializes and checks for all basic elements of the page
-                                         * and makes rendering easier.
-                                         *
-                                         */
+                                            /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                                             *
+                                             * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                                             *
+                                             * // activate tooltips
+                                             * $("[rel=tooltip]").tooltip();
+                                             *
+                                             * // activate popovers
+                                             * $("[rel=popover]").popover();
+                                             *
+                                             * // activate popovers with hover states
+                                             * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                                             *
+                                             * // activate inline charts
+                                             * runAllCharts();
+                                             *
+                                             * // setup widgets
+                                             * setup_widgets_desktop();
+                                             *
+                                             * // run form elements
+                                             * runAllForms();
+                                             *
+                                             ********************************
+                                             *
+                                             * pageSetUp() is needed whenever you load a page.
+                                             * It initializes and checks for all basic elements of the page
+                                             * and makes rendering easier.
+                                             *
+                                             */
 
-                                        pageSetUp();
-                                        /*
-                                         * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                         * eg alert("my home function");
-                                         * 
-                                         * var pagefunction = function() {
-                                         *   ...
-                                         * }
-                                         * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                         * 
-                                         * TO LOAD A SCRIPT:
-                                         * var pagefunction = function (){ 
-                                         *  loadScript(".../plugin.js", run_after_loaded);	
-                                         * }
-                                         * 
-                                         * OR
-                                         * 
-                                         * loadScript(".../plugin.js", run_after_loaded);
-                                         */
+                                            pageSetUp();
+                                                    /*
+                                                     * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                     * eg alert("my home function");
+                                                     * 
+                                                     * var pagefunction = function() {
+                                                     *   ...
+                                                     * }
+                                                     * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                     * 
+                                                     * TO LOAD A SCRIPT:
+                                                     * var pagefunction = function (){ 
+                                                     *  loadScript(".../plugin.js", run_after_loaded);	
+                                                     * }
+                                                     * 
+                                                     * OR
+                                                     * 
+                                                     * loadScript(".../plugin.js", run_after_loaded);
+                                                     */
 
-                                        })
+                                            })
 
         </script>
 
         <!-- Your GOOGLE ANALYTICS CODE Below -->
         <script type="text/javascript">
                     var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-            _gaq.push(['_trackPageview']);
-            (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-            })();</script>
+                    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+                    _gaq.push(['_trackPageview']);
+                    (function () {
+                    var ga = document.createElement('script');
+                            ga.type = 'text/javascript';
+                            ga.async = true;
+                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(ga, s);
+                    })();</script>
         <script>
-            $(document).ready(function () {
+                    $(document).ready(function () {
             $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
-            $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
+                    $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
             var children = $(this).parent('li.parent_li').find(' > ul > li');
-            if (children.is(':visible')) {
+                    if (children.is(':visible')) {
             children.hide('fast');
-            $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+                    $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
             } else {
             children.show('fast');
-            $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+                    $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
             }})
                     $.ajax({
                     url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
@@ -958,7 +958,7 @@
                             $.each(json, function (i, optionHtml) {
                             //$('#plumber').append(optionHtml['plumber_select']);                    
                             $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                            $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                    $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                             });
                             }
                     });
@@ -967,7 +967,7 @@
         <script src="./js/jquery.js"></script>-->
         <script>
 
-            $('#dialog_simple').dialog({
+                    $('#dialog_simple').dialog({
             autoOpen : false,
                     modal : true,
                     title : "Pipeline added Successfully",
@@ -982,7 +982,7 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#pipelinename').prop('disabled', 'disabled')
                                     $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
@@ -990,7 +990,7 @@
                             }
                     }]
             });
-            $('#create-pipeline').dialog({
+                    $('#create-pipeline').dialog({
             autoOpen : false,
                     modal : true,
                     title : "Input Saved Successfully",
@@ -1005,15 +1005,14 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#pipelinename').prop('disabled', 'disabled')
                                     $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
                                     $('#analyze_parent').html('<code>*input JSON Payload</code>');
                             }
                     }]
-            });
-        </script>
+            });        </script>
         <script src="./js/jquery.dynatable.js"></script>
         <script src="./js/jsonvalidator.js"></script>
         <script src="./js/pipeline.js"></script>
