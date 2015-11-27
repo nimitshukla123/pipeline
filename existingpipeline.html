@@ -478,7 +478,8 @@
                                                 <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
                                                     <option value="">Select Pipeline</option>
                                                 </select>
-                                                <label data-original-title="email" for="email" class="glyphicon glyphicon-search" rel="tooltip" title=""></label>
+                                                <label data-original-title="email" for="email" class="glyphicon glyphicon-search"  title=""></label>
+                                                <input type="hidden" name="plumbername" id="pipelinename" value=""/>
                                             </div>
                                         </div>
 
@@ -725,7 +726,7 @@
                                                         </div>                             end widget -->
                             <div class="form-group" id="submitbox"style="display: block">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <a class="btn btn-labeled btn-success" onclick="addinputexisting()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
+                                    <a class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
                                 </div>
                             </div>
                         </article></div>

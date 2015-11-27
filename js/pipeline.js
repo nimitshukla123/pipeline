@@ -110,6 +110,7 @@ function processPlumber(element) {
     $('#select-pipeline-chart').hide();
     //element.nextElementSibling.value=element.value;
     if (element.name == 'plumber_name_select') {
+        $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
@@ -124,7 +125,6 @@ function processPlumber(element) {
                 drawChart(json);
             }
         });
-//        var json = [{"child": "CCCC", "parent": "brandnew pipeline"}, {"child": "Noname", "parent": "brandnew pipeline"}, {"child": "", "parent": "CCCC"}, {"child": "NewChild", "parent": "CCCC"}];
     }
     if (element.name == 'plumber_select') {
 
@@ -340,7 +340,7 @@ $(function () { //shorthand document.ready function
             $.each(kv, function (i, key) {
                 htmlStr = htmlStr + "<tr> \
                 <td> " + i + " </td>\
-                <input type ='hidden' name="+i+" value="+key+" />\
+                <input type ='hidden' name=" + i + " value=" + key + " />\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
                 <td> <label / > " + key + " </label></td>\
@@ -523,7 +523,22 @@ function addinputs() {
     if (!$('#inputname').val() || !$('#pipelinename').val() || !$('#parent_json_value').val()) {
         alert('Please Enter Input Name & JSON Payload')
     } else {
-        $('#dialog_simple').dialog('open');
+        $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v1/createModel',
+            type: 'POST',
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({"plumber":$('#pipelinename').val(),"title":$('#inputname').val(),"parentModel":"","data":$('#parent_json_value').val()}),
+            success: function (response) {
+                if (response.status == 'succesful') {
+                    $('#dialog_simple').dialog('open');
+                } else if (response.status == 'Failed') {
+                    alert('Unable to save inputs');
+                } else {
+                    alert('Unable to create the plumber! please try after some time');
+                }
+            }
+        });
     }
     return false;
 }
@@ -533,18 +548,18 @@ function addmoreinputs() {
     $('#jsonload').css('display', 'block');
 }
 
-function addinputexisting(){
-    if (!$('#parent_json_value').val()) {
-        alert('Please Enter JSON Payload')
-    } else {
-        $('#dialog_simple').dialog('open');
-    }
-    return false;
-    
-}
+//function addinputexisting() {
+//    if (!$('#parent_json_value').val()) {
+//        alert('Please Enter JSON Payload')
+//    } else {
+//        $('#dialog_simple').dialog('open');
+//    }
+//    return false;
+//
+//}
 
-function proceedjoin(){
-     $('#joininputbox').css('display', 'block');
-     $('#selectinputsbox').css('display', 'block');
-    
+function proceedjoin() {
+    $('#joininputbox').css('display', 'block');
+    $('#selectinputsbox').css('display', 'block');
+
 }
