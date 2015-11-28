@@ -341,13 +341,7 @@
                         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
                         <ul  style="display: block">
                             <li class="active">
-                                <a href="join.html">Join</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Filter</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Group By</a>
+                                <a href="join.html">Filter/Join/Group By</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">MC Learning</a>
@@ -431,11 +425,11 @@
                 <section id="widget-grid" class="">
 
                     <div class="row">
-                        <article class="col-sm-12 sortable-grid ui-sortable">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
 
                             <!-- Widget ID (each widget will need unique ID)-->
-                            <div class="jarviswidget jarviswidget-color-redLight" id="wid-id-configure" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" 
+                            <div class="jarviswidget jarviswidget-color-redLight" id="wid-id-visu" data-widget-deletebutton="false" data-widget-editbutton="false"
+                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
                                  >
                                 <!-- widget options:
                                         usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -451,7 +445,7 @@
                                         
                                 -->
                                 <header>
-                                    <h2>Configure Pipeline</h2>
+                                    <h2>Select Existing Pipeline</h2>
                                 </header>
 
                                 <!-- widget div-->
@@ -465,53 +459,76 @@
                                     <!-- end widget edit box -->
 
                                     <!-- widget content -->
-                                    <div class="widget-body form-horizontal">
-                                        <!--<fieldset>-->
+                                    <div class="widget-body  form-horizontal">
                                         <div class="form-group">
                                             <label for="select-1" class="col-md-4 control-label">Pipeline Name</label>
+                                            <div class="col-md-3">
+                                                <div class="icon-addon addon-md">
+                                                    <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
+                                                        <option value="">Select Pipeline</option>
+                                                    </select>
+                                                    <label data-original-title="email" for="email" class="glyphicon glyphicon-search"  title=""></label>
+                                                    <input type="hidden" name="plumbername" id="pipelinename" value=""/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div id="inputtreebox" class="form-group" style="display: none"> <label for="select-1" class="col-md-4 control-label">Inputs</label>
                                             <div class="col-md-5">
-                                                <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
-                                                    <option value="">Select Pipeline</option>
-                                                </select>
+                                                <div class="tree smart-form">
+                                                    <ul><li>
+                                                            <span id="existingPipeline-name"></span>
+                                                            <ul id="pipeline-input-tree" class="joinpage">
+                                                                <!--                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i> Input 1</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 2</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 3</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span><i class="icon-leaf"></i>  Input 4</span>
+                                                                                                                                </li>
+                                                                                                                                <li>
+                                                                                                                                    <span class="addmoreinput"><i class="icon-leaf"></i>Add <a onclick="addmoreinputs();" href="javascript:void(0);" class="btn btn-default btn-circle"><i class="fa fa-plus"></i></a></span>
+                                                                                                                                </li>-->
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
 
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="select-1" class="col-md-4 control-label">Pipeline Stage</label>
-                                            <div class="col-md-5">
-                                                <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
-                                                    <option value="">Select Stage</option>
-                                                    <option value="">Stage 1</option>
-                                                    <option value="">Stage 2</option>
-                                                </select>
-
-                                            </div>
-
-                                        </div>
-
-                                        <!--</fieldset>-->
-                                        <!-- your contents here -->
-                                        <div class="form-group">
-                                            <div class="col-md-5" style="float: right">
-                                                <a class="btn btn-warning" id="procnwpipe"  onclick="proceedjoin()"  href="javascript:void(0);">Proceed</a>
-                                            </div>
-                                        </div>
+                                            </div></div>
+                                        <!-- this is what the user will see -->
+                                        <!--                                        <div class="col-md-8">
+                                        
+                                                                                    <div class="icon-addon addon-md">
+                                                                                        <select class="form-control" id="plumber_name_select" name="plumber_name_select" onchange="processPlumber(this)">
+                                                                                            <option value="">Select Pipeline</option>
+                                                                                        </select>
+                                                                                        <label data-original-title="email" for="email" class="glyphicon glyphicon-search" rel="tooltip" title=""></label>
+                                                                                    </div>
+                                                                                </div>-->
+                                <div class="form-group" id="submitbox"style="display: none">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a style="float: right" class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
+                                    </div>
+                                </div>
                                     </div>
                                     <!-- end widget content -->
 
                                 </div>
                                 <!-- end widget div -->
-
                             </div>
                             <!-- end widget -->
 
                         </article>
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="joininputbox" style="display: none">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-pinkDark" id="wid-id-rgt" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false" data-widget-collapsed="true" 
+                                 data-widget-custombutton="false"  data-widget-deletebutton="false" 
                                  >
 
                                 <header>
@@ -519,7 +536,7 @@
                                 </header>
 
                                 <!-- widget div-->
-                                <div  id="joininputbox">
+                                <div>
 
                                     <!-- widget edit box -->
                                     <div class="jarviswidget-editbox">
@@ -533,16 +550,17 @@
                                         <div class="row">
                                             <label for="select-1" class="col-md-3 control-label ">Input Name</label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" placeholder="Input Name" id="inputname" name="inputname">
+                                                <input type="text" class="form-control" placeholder="Input Name" id="inputname" name="inputname" disabled="disabled">
 
 
                                             </div>
+                                            <a style="float: right;margin-right: 10px;font-size: 25px" onclick="showjoininputboxfinal()" id="addjoinbtn" href="javascript:void(0);" class="btn btn-default btn-circle btn-lg"><i class="fa fa-plus fa-3"></i></a>
                                         </div> <div class="form-group">
                                             <legend>JSON Payload</legend>
                                             <fieldset>
                                                 <section>
                                                     <label class="textarea"> 										
-                                                        <textarea class="form-control custom-scroll" rows="3" id="joininputjson" name="joininputjson" style="width: 456px; height: 150px;"></textarea>
+                                                        <textarea class="form-control custom-scroll filterbox" rows="3" id="joininputjson" name="joininputjson" style="width: 456px; height: 150px;"></textarea>
 
                                                     </label>
 
@@ -564,11 +582,11 @@
                             <!-- end widget -->
 
                         </article>
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none"  id="selectinputsbox">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-greenDark" id="wid-id-rgt-inputs" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false" data-widget-collapsed="true" 
+                                 data-widget-custombutton="false"  data-widget-deletebutton="false" 
                                  >
 
                                 <header>
@@ -576,7 +594,7 @@
                                 </header>
 
                                 <!-- widget div-->
-                                <div  id="selectinputsbox">
+                                <div>
 
                                     <!-- widget edit box -->
                                     <div class="jarviswidget-editbox">
@@ -600,7 +618,7 @@
 
                                             </div>
                                         </div> 
-                                        <div class="row">
+<!--                                        <div class="row">
                                             <label for="select-1" class="col-md-3 control-label ">JOIN Type</label>
                                             <div class="col-md-4">
                                                 <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs()">
@@ -609,13 +627,13 @@
                                                 </select>
 
                                             </div>
-                                        </div> 
+                                        </div> -->
                                         <div class="form-group">
                                             <legend>JSON Payload</legend>
                                             <fieldset>
                                                 <section>
                                                     <label class="textarea"> 										
-                                                        <textarea class="form-control custom-scroll" rows="3" id="parent_json_value" name="parent_json_value" style="width: 456px; height: 150px;"></textarea>
+                                                        <textarea class="form-control custom-scroll" rows="3" id="parent_json_value_joinbox" name="parent_json_value" style="width: 456px; height: 150px;"></textarea>
 
                                                     </label>
 
@@ -657,7 +675,7 @@
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-teal" id="wid-id-chart" data-widget-editbutton="false"
                                  data-widget-custombutton="false"  data-widget-deletebutton="false"
-                                 data-widget-collapsed="true" style="display: none"
+                                 style="display: none"
                                  >
                                 <!-- widget options:
                                         usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -717,11 +735,11 @@
                                 <!-- end widget div -->
 
                             </div>                            <!-- end widget -->
-                            <div class="form-group" id="submitbox"style="display: block">
+<!--                            <div class="form-group" id="submitbox"style="display: block">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <a onclick="addinputs()" class="btn btn-labeled btn-success" href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
                                 </div>
-                            </div>
+                            </div>-->
                         </article>
                         <!-- a blank row to get started -->
 
@@ -978,7 +996,36 @@
                             }
                     }]
             });</script>
+        <script>
+                    $(document).ready(function () {
+            $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
+                    $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+                    if (children.is(':visible')) {
+            children.hide('fast');
+                    $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+            } else {
+            children.show('fast');
+                    $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+            }})
+                    $.ajax({
+                    url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (json) {
+                            $.each(json, function (i, optionHtml) {
+                            //$('#plumber').append(optionHtml['plumber_select']);                    
+                            $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                    $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                            });
+                            }
+                    });
+            });</script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="./js/jquery.js"></script>-->
+<!--        <script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
         <script src="./js/jquery.js"></script>-->
 
         <script src="./js/jquery.dynatable.js"></script>

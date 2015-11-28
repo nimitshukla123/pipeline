@@ -108,12 +108,12 @@ function showChildDiv() {
 function processPlumber(element) {
 
     $('#select-pipeline-chart').hide();
-    
-    $('#submitbox').css('display','block');
-    $('#inputtreebox').css('display','block');
-    $('#chart-box').css('display','block');
-    $('#inputjsonbox').css('display','block');
-    
+
+    $('#submitbox').css('display', 'block');
+    $('#inputtreebox').css('display', 'block');
+    $('#chart-box').css('display', 'block');
+    $('#inputjsonbox').css('display', 'block');
+
     //element.nextElementSibling.value=element.value;
     if (element.name == 'plumber_name_select') {
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
@@ -123,13 +123,18 @@ function processPlumber(element) {
             type: 'GET',
             dataType: 'json',
             success: function (json) {
-                    $('#pipeline-input-tree').empty();
+                $('#joininputbox').css('display', 'block');
+//                $('#selectinputsbox').css('display', 'block');
+                $('#pipeline-input-tree').empty();
                 $.each(json, function (i, optionHtml) {
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                     $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
                     $('#pipeline-input-tree').append("<li><span><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
                 });
-                $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
+                if ($('#pipeline-input-tree').hasClass('joinpage')) {
+                } else {
+                    $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
+                }
                 drawChart(json);
             }
         });
@@ -398,7 +403,21 @@ $(function () { //shorthand document.ready function
                         </thead> \
                         <tbody> \
                         ";
-        var htmlStr = ' <table class=\"table table-hover\">\
+        if ($('#joininputjson').hasClass('filterbox')) {
+            var htmlStr = ' <table class=\"table table-hover\">\
+                        <thead> \
+                                <th>Select</th> \
+                                <th>Field</th> \
+                                <th>Data Type</th> \
+                                <th>Filter</th> \
+                                <th>Sample value</th> \
+                        </thead> \
+                        <tbody> \
+                        ';
+
+        } else {
+
+            var htmlStr = ' <table class=\"table table-hover\">\
                         <thead> \
                                 <th>Select</th> \
                                 <th>Field</th> \
@@ -407,6 +426,7 @@ $(function () { //shorthand document.ready function
                         </thead> \
                         <tbody> \
                         ';
+        }
         e.preventDefault(); //prevent form from submitting
         //var data = $("#form :input").serializeArray();
         if (e.target.id === 'parent_json_value') {
@@ -441,16 +461,31 @@ $(function () { //shorthand document.ready function
             });
 //            console.log(kv);
             var count = 0;
-            $.each(kv, function (i, key) {
-                htmlStr = htmlStr + "<tr> \
+            if ($('#joininputjson').hasClass('filterbox')) {
+                $.each(kv, function (i, key) {
+                    htmlStr = htmlStr + "<tr> \
+                            <td><input type='checkbox' name=" + radioParent + count + "/>\
+                <td> " + i + " </td>\
+                            <td><select class='form-control' name=" + radioParent + count + ">\
+<option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
+                            <td><select class='form-control' name=" + radioParent + count + ">\
+<option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
+                <td> <label / > " + key + " </label></td>\
+                </tr>"
+                    count++;
+                });
+            } else {
+                $.each(kv, function (i, key) {
+                    htmlStr = htmlStr + "<tr> \
                             <td><input type='checkbox' name=" + radioParent + count + "/>\
                 <td> " + i + " </td>\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
                 <td> <label / > " + key + " </label></td>\
                 </tr>"
-                count++;
-            });
+                    count++;
+                });
+            }
             htmlStr = htmlStr + "</tbody> \
                         </table>";
             document.getElementById(analyzeId).innerHTML = htmlStr
@@ -501,9 +536,9 @@ function proceednew() {
 
         alert('Please Enter Pipeline Name');
     } else {
-        $('#procnwpipe').css('display','none')
-        $('#submitbtnbox').css('display','block')
-        
+        $('#procnwpipe').css('display', 'none')
+        $('#submitbtnbox').css('display', 'block')
+
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
             type: 'POST',
@@ -572,4 +607,9 @@ function proceedjoin() {
     $('#joininputbox').css('display', 'block');
     $('#selectinputsbox').css('display', 'block');
 
+}
+
+function  showjoininputboxfinal(){
+    $('#addjoinbtn').toggleClass('btn-success');
+    $('#selectinputsbox').toggle();
 }
