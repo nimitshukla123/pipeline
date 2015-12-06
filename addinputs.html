@@ -344,25 +344,12 @@
                         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
                         <ul>
                             <li>
-                                <a href="javascript:void(0)" onclick="performjoinoperations()" id="joinlink">
-                                    <span class="menu-item-parent">Join</span>
-                                    <span class="badge pull-right inbox-badge joinlinkselector" style="display: none"><span class="glyphicon glyphicon-check"></span></span>
-
-
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Filter</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Group By</a>
+                                <a href="join.html">Filter/Join/Group By</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">MC Learning</a>
                             </li>
-                        </ul>
-                    </li>
+                        </ul>                    </li>
                 </ul>
             </nav>
             <span class="minifyme" data-action="minifyMenu"> 
@@ -572,7 +559,7 @@
                                 <div class="hr hr-12 hr-double"></div>
 
 
-                             
+
 
                             </div>
 
@@ -880,7 +867,7 @@
                     });
             });
                     $('#dialog_simple').dialog({
-                    autoOpen : false,
+            autoOpen : false,
                     modal : true,
                     title : "Input Saved Successfully",
                     buttons : [{
@@ -894,11 +881,11 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                            $('#pipelinename').prop('disabled','disabled')
-                            $('#procnwpipe').prop('disabled','disabled')
-                            $('#inputname').val('')
-                            $('#parent_json_value').val('')
-                            $('#analyze_parent').html('<code>*input JSON Payload</code>');
+                                    $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#procnwpipe').prop('disabled', 'disabled')
+                                    $('#inputname').val('')
+                                    $('#parent_json_value').val('')
+                                    $('#analyze_parent').html('<code>*input JSON Payload</code>');
                             }
                     }]
             });</script>

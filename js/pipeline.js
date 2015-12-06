@@ -422,7 +422,7 @@ $(function () { //shorthand document.ready function
                                 <th>Select</th> \
                                 <th>Field</th> \
                                 <th>Data Type</th> \
-                                <th>Sample value</th> \
+                                <th>Value</th> \
                         </thead> \
                         <tbody> \
                         ';
@@ -466,11 +466,10 @@ $(function () { //shorthand document.ready function
                     htmlStr = htmlStr + "<tr> \
                             <td><input type='checkbox' name=" + radioParent + count + "/>\
                 <td> " + i + " </td>\
-                            <td><select class='form-control' name=" + radioParent + count + ">\
-<option value='String'>String</option><option value='Integer'>Integer</option></select></td>\
+                            <td>String</td>\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
-                <td> <label / > " + key + " </label></td>\
+                <td> <input class='form-control' type='text' value='"+key+"'/></td>\
                 </tr>"
                     count++;
                 });

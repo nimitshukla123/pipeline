@@ -338,22 +338,15 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Operations</span></a>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
                         <ul>
                             <li>
-                                <a href="flot.html">Join</a>
+                                <a href="join.html">Filter/Join/Group By</a>
                             </li>
                             <li>
-                                <a href="morris.html">Filter</a>
+                                <a href="javascript:void(0)">MC Learning</a>
                             </li>
-                            <li>
-                                <a href="inline-charts.html">Group By</a>
-                            </li>
-                            <li>
-                                <a href="dygraphs.html">MC Learning</a>
-                            </li>
-                        </ul>
-                    </li>
+                        </ul>                    </li>
                 </ul>
             </nav>
             <span class="minifyme" data-action="minifyMenu"> 
@@ -749,22 +742,22 @@
                             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                             var s = document.getElementsByTagName('script')[0];
                             s.parentNode.insertBefore(ga, s);
-                    })();        </script>
+                    })();</script>
         <script>
                     $(document).ready(function () {
-                            $.ajax({
-                                url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
-                                type: 'GET',
-                                dataType: 'json',
-                                success: function (json) {
-                                    $.each(json, function (i, optionHtml) {
-                                        //$('#plumber').append(optionHtml['plumber_select']);                    
-                                        $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                                        $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                                    });
-                                }
-                            });
-            });        </script>
+            $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (json) {
+                    $.each(json, function (i, optionHtml) {
+                    //$('#plumber').append(optionHtml['plumber_select']);                    
+                    $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                            $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                    });
+                    }
+            });
+            });</script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="./js/jquery.js"></script>-->
 
