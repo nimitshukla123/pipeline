@@ -537,11 +537,11 @@
                                         <div class="row">
                                             <label for="select-1" class="col-md-3 control-label ">Input Name</label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" placeholder="Input Name" id="inputname" name="inputname" disabled="disabled">
+                                                <input type="text" class="form-control" placeholder="Input Name" id="firstinputname" name="firstinputname" disabled="disabled">
 
 
                                             </div>
-                                            <a style="float: right;margin-right: 10px" onclick="showjoininputboxfinal()" id="addjoinbtn" href="javascript:void(0);" class="btn btn-success">JOIN</a>
+                                            <a style="float: right;margin-right: 10px" onclick="showjoininputboxfinal()" id="addjoinbtn" href="javascript:void(0);" class="btn btn-warning">JOIN</a>
                                         </div> <div class="form-group">
                                             <legend>JSON Payload</legend>
                                             <fieldset>
@@ -573,8 +573,9 @@
                         <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="selectinputsbox">
 
                             <!-- Widget ID (each widget will need unique ID)-->
+                            <!--<div class="selectsubmitbox"> </div>-->
                             <div class="jarviswidget  jarviswidget-color-greenDark" id="wid-id-rgt-inputs" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false" 
+                                 data-widget-custombutton="false"  data-widget-deletebutton="false" style="display: none"
                                  >
 
                                 <header>
@@ -605,7 +606,7 @@
                                                 </select>
 
                                             </div>
-                                            <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Proceed</a>
+                                            <a style="float: right;margin-right: 40px" onclick="joinprogressshow()" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Proceed</a>
 
                                         </div> 
                                         <!--                                        <div class="row">
@@ -658,81 +659,10 @@
 
 
                             </div>
-
-
-
-                            <!-- Widget ID (each widget will need unique ID)-->
-                            <div class="jarviswidget  jarviswidget-color-teal" id="wid-id-chart" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false"
-                                 style="display: none"
-                                 >
-                                <!-- widget options:
-                                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-                                        
-                                        data-widget-colorbutton="false"	
-                                        data-widget-editbutton="false"
-                                        data-widget-togglebutton="false"
-                                        data-widget-deletebutton="false"
-                                        data-widget-fullscreenbutton="false"
-                                        data-widget-custombutton="false"
-                                        data-widget-collapsed="true" 
-                                        data-widget-sortable="false"
-                                        
-                                -->
-                                <header>
-                                    <h2>Overview</h2>
-                                </header>
-
-                                <!-- widget div-->
-                                <div id="overviewbox">
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body">
-
-                                        <div class="col-sm-12">
-                                            <!-- your contents here -->
-                                            <div class="form-group">
-                                                <label for="select-1" class="col-md-5 control-label">Name of the Pipeline</label>
-                                                <div class="col-md-7">
-                                                    <label for="select-1" class="col-md-10 control-label" id="pipelinenameset">
-                                                        <code>*set name of the pipeline </code></label>
-
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="select-1" class="col-md-5 control-label">SQL Preview</label>
-                                                <div class="col-md-7">
-                                                    <label for="select-1" class="col-md-10 control-label" id="sqloutput">
-                                                        <code>*set inputs to create sql output </code></label>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- end widget content -->
-
-                                </div>
-                                <!-- end widget div -->
-
-                            </div>                            <!-- end widget -->
-                            <!--                            <div class="form-group" id="submitbox"style="display: block">
-                                                            <div class="col-sm-offset-2 col-sm-10">
-                                                                <a onclick="addinputs()" class="btn btn-labeled btn-success" href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
-                                                            </div>
-                                                        </div>-->
                         </article>
                         <!-- a blank row to get started -->
                         <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
-                            <div class="jarviswidget jarviswidget-color-orangeDark" id="sqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
+                            <div class="jarviswidget jarviswidget-color-blueDark" id="selectsqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
                                  data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
                                  >
                                 <header>
@@ -752,23 +682,57 @@
                                     <!-- widget content -->
                                     <div class="widget-body  form-horizontal">
                                         <div class="form-group">
+
+                                            <div class="col-md-8">
+                                                <code>SQL preview shown here</code>
+
+                                            </div>
+                                            <div class="col-md-4"><a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
+                                                <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
+
+
+                                            </div>
+                                        </div>    
+
+
+                                    </div></div></div>
+                            <div class="jarviswidget jarviswidget-color-orangeDark" id="sqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
+                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
+                                 >
+                                <header>
+                                    <h2>Conditions & SQL Preview</h2>
+                                </header>
+
+                                <!-- widget div-->
+                                <div>
+
+                                    <!-- widget edit box -->
+                                    <div class="jarviswidget-editbox">
+                                        <!-- This area used as dropdown edit box -->
+                                        <input class="form-control" type="text">	
+                                    </div>
+                                    <!-- end widget edit box -->
+
+                                    <!-- widget content -->
+                                    <div class="widget-body  form-horizontal">
+                                        <div class="form-group">
                                             <label class="col-md-2 control-label" for="select-1">Condition</label>
-                                            
+
                                             <div class="col-md-2">
-                                                <select onchange="processPlumber(this)" name="plumber_name_select" id="plumber_name_select" class="form-control">
+                                                <select  id="firstinputcolumns" name="firstinputcolumns" class="form-control">
                                                     <option value="">Input1.id</option>
                                                     <option value="">Input1.name</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <select onchange="processPlumber(this)" name="plumber_name_select" id="plumber_name_select" class="form-control">
+                                                <select id="conditionsselect" name="conditionsselect" class="form-control">
                                                     <option value="">Equal to</option>
                                                     <option value="">Greater Than</option>
                                                     <option value="">Less Than</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <select onchange="processPlumber(this)" name="plumber_name_select" id="plumber_name_select" class="form-control">
+                                                <select id="secondinputcolumns" name="secondinputcolumns" class="form-control">
                                                     <option value="">Input2.id</option>
                                                     <option value="">Input2.salary</option>
                                                 </select>
@@ -790,7 +754,7 @@
                                     </div></div></div>
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget jarviswidget-color-pink" id="wid-id-joinprv" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
+                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
                                  >
                                 <!-- widget options:
                                         usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -824,7 +788,7 @@
 
                                         <fieldset>
                                             <div id="submitbox" class="form-group">
-                                                <div class="col-sm-offset-1 col-sm-8">
+                                                <div class="col-sm-offset-1 col-sm-5">
                                                     <ul class="list-unstyled" id="external-events">
                                                         <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
                                                             <span data-icon="fa-time" class="bg-color-darken txt-color-white">Input 1</span>
@@ -842,8 +806,11 @@
                                                             <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 5</span>
                                                             <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
                                                     </ul></div>
-                                                <div class="col-sm-offset-0 col-sm-2">
-                                                    <a href="javascript:void(0);" onclick="addinputs()" class="btn btn-labeled btn-success" style="float: right"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
+                                                <div class="col-sm-offset-0 col-sm-5">
+                                                    <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
+                                                    <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
+
+
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -916,16 +883,16 @@
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-                                                                if (!window.jQuery) {
-                                                        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
-                                                        }
+                                                            if (!window.jQuery) {
+                                                    document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+                                                    }
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script>
-                                                                if (!window.jQuery.ui) {
-                                                        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
-                                                        }
+                                                            if (!window.jQuery.ui) {
+                                                    document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+                                                    }
         </script>
 
         <!-- IMPORTANT: APP CONFIG -->
@@ -992,59 +959,59 @@
 
         <script type="text/javascript">
 
-                                                                $(document).ready(function () {
+                                                            $(document).ready(function () {
 
-                                                        /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-                                                         *
-                                                         * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-                                                         *
-                                                         * // activate tooltips
-                                                         * $("[rel=tooltip]").tooltip();
-                                                         *
-                                                         * // activate popovers
-                                                         * $("[rel=popover]").popover();
-                                                         *
-                                                         * // activate popovers with hover states
-                                                         * $("[rel=popover-hover]").popover({ trigger: "hover" });
-                                                         *
-                                                         * // activate inline charts
-                                                         * runAllCharts();
-                                                         *
-                                                         * // setup widgets
-                                                         * setup_widgets_desktop();
-                                                         *
-                                                         * // run form elements
-                                                         * runAllForms();
-                                                         *
-                                                         ********************************
-                                                         *
-                                                         * pageSetUp() is needed whenever you load a page.
-                                                         * It initializes and checks for all basic elements of the page
-                                                         * and makes rendering easier.
-                                                         *
-                                                         */
+                                                    /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                                                     *
+                                                     * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                                                     *
+                                                     * // activate tooltips
+                                                     * $("[rel=tooltip]").tooltip();
+                                                     *
+                                                     * // activate popovers
+                                                     * $("[rel=popover]").popover();
+                                                     *
+                                                     * // activate popovers with hover states
+                                                     * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                                                     *
+                                                     * // activate inline charts
+                                                     * runAllCharts();
+                                                     *
+                                                     * // setup widgets
+                                                     * setup_widgets_desktop();
+                                                     *
+                                                     * // run form elements
+                                                     * runAllForms();
+                                                     *
+                                                     ********************************
+                                                     *
+                                                     * pageSetUp() is needed whenever you load a page.
+                                                     * It initializes and checks for all basic elements of the page
+                                                     * and makes rendering easier.
+                                                     *
+                                                     */
 
-                                                        pageSetUp();
-                                                                /*
-                                                                 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                                                 * eg alert("my home function");
-                                                                 * 
-                                                                 * var pagefunction = function() {
-                                                                 *   ...
-                                                                 * }
-                                                                 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                                                 * 
-                                                                 * TO LOAD A SCRIPT:
-                                                                 * var pagefunction = function (){ 
-                                                                 *  loadScript(".../plugin.js", run_after_loaded);	
-                                                                 * }
-                                                                 * 
-                                                                 * OR
-                                                                 * 
-                                                                 * loadScript(".../plugin.js", run_after_loaded);
-                                                                 */
+                                                    pageSetUp();
+                                                            /*
+                                                             * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                             * eg alert("my home function");
+                                                             * 
+                                                             * var pagefunction = function() {
+                                                             *   ...
+                                                             * }
+                                                             * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                             * 
+                                                             * TO LOAD A SCRIPT:
+                                                             * var pagefunction = function (){ 
+                                                             *  loadScript(".../plugin.js", run_after_loaded);	
+                                                             * }
+                                                             * 
+                                                             * OR
+                                                             * 
+                                                             * loadScript(".../plugin.js", run_after_loaded);
+                                                             */
 
-                                                        })
+                                                    })
 
         </script>
 

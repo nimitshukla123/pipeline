@@ -725,6 +725,14 @@ function proceedjoin() {
 }
 
 function  showjoininputboxfinal(){
+    $('#addjoinbtn').toggleClass('btn-warning');
     $('#addjoinbtn').toggleClass('btn-success');
-    $('#selectinputsbox').toggle();
+    $('#selectsqlpreview').toggle();
+    $('#wid-id-rgt-inputs').toggle();
+}
+
+function joinprogressshow(){
+    $('#sqlpreview').toggle();
+    $('#wid-id-joinprv').toggle();
+    
 }
