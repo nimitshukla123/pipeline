@@ -125,12 +125,15 @@ function processPlumber(element) {
             dataType: 'json',
             success: function (json) {
                 $('#joininputbox').css('display', 'block');
-//                $('#selectinputsbox').css('display', 'block');
+                $('#analyze_parent').html();
+                $('#firstinputname').val('');
+                $('#joininputjson').val('');
+                $('#available_inputs').html('<option>Select Input</option>');
                 $('#pipeline-input-tree').empty();
                 $.each(json, function (i, optionHtml) {
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                     $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
-                    $('#pipeline-input-tree').append("<li><span><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
+                    $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
                 });
                 if ($('#pipeline-input-tree').hasClass('joinpage')) {
                 } else {
@@ -470,7 +473,7 @@ $(function () { //shorthand document.ready function
                             <td>String</td>\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
-                <td> <input class='form-control' type='text' value='"+key+"'/></td>\
+                <td> <input class='form-control' type='text' value='" + key + "'/></td>\
                 </tr>"
                     count++;
                 });
@@ -495,13 +498,13 @@ $(function () { //shorthand document.ready function
                                     <li><a href="#">Something else here</a></li> \
                                     <li><a href="#">Separated link</a></li> \
                                 </ul>';
-            document.getElementById(operationId).innerHTML = operStr
+//            document.getElementById(operationId).innerHTML = operStr
             //console.log(htmlStr);
         } else {
             alert("Invalid JSON");
         }
     });
-        $('#joininputjson2').on('change', function (e) { //use on if jQuery 1.7+
+    $('#joininputjson2').on('change', function (e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
 //        console.log("Analyze id " + e.target.id);
@@ -584,7 +587,7 @@ $(function () { //shorthand document.ready function
                             <td>String</td>\
                             <td><select class='form-control' name=" + radioParent + count + ">\
 <option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
-                <td> <input class='form-control' type='text' value='"+key+"'/></td>\
+                <td> <input class='form-control' type='text' value='" + key + "'/></td>\
                 </tr>"
                     count++;
                 });
@@ -609,7 +612,7 @@ $(function () { //shorthand document.ready function
                                     <li><a href="#">Something else here</a></li> \
                                     <li><a href="#">Separated link</a></li> \
                                 </ul>';
-            document.getElementById(operationId).innerHTML = operStr
+//            document.getElementById(operationId).innerHTML = operStr
             //console.log(htmlStr);
         } else {
             alert("Invalid JSON");
@@ -724,15 +727,68 @@ function proceedjoin() {
 
 }
 
-function  showjoininputboxfinal(){
-    $('#addjoinbtn').toggleClass('btn-warning');
-    $('#addjoinbtn').toggleClass('btn-success');
-    $('#selectsqlpreview').toggle();
-    $('#wid-id-rgt-inputs').toggle();
+function  showjoininputboxfinal() {
+    if ($('.inputlis').hasClass('activeinput')) {
+        $('#addjoinbtn').toggleClass('btn-warning');
+        $('#addjoinbtn').toggleClass('btn-success');
+        $('#selectsqlpreview').toggle();
+        $('#wid-id-rgt-inputs').toggle();
+        $('#sqlpreview').hide();
+        $('#wid-id-joinprv').hide();
+        updateJoinInputList();
+    } else {
+        alert('first Select Input');
+    }
+
+
 }
 
-function joinprogressshow(){
-    $('#sqlpreview').toggle();
-    $('#wid-id-joinprv').toggle();
-    
+function joinprogressshow() {
+    if ($('#available_inputs').val() != '') {
+        $('#sqlpreview').toggle();
+        $('#wid-id-joinprv').toggle();
+
+    } else {
+        alert('Select Input to JOIN')
+    }
+
+}
+
+//set selected input
+function fillinput(e) {
+    $('#firstinputname').val($(e).text());
+    $('#joininputjson').val($(e).attr('data-json'));
+    $('#joininputjson').trigger('change');
+    $('.inputlis').css('background', 'white');
+    $('.inputlis').removeClass('activeinput').addClass('inactiveinput');
+    $(e).css('background', 'greenyellow');
+    $(e).addClass('activeinput').removeClass('inactiveinput');
+    $('#sqlpreview').hide();
+    $('#wid-id-joinprv').hide();
+    updateJoinInputList();
+
+
+}
+
+function updateJoinInputList() {
+    var options = '<option value="">Select Input</input>';
+    $('.inactiveinput').each(function () {
+        options += '<option value=' + $(this).attr('data-json') + '>' + $(this).text() + '</option>';
+
+    });
+    $('#joininputjson2').val('');
+    $('#analyze_parent2').html('');
+    $('#available_inputs').html(options);
+}
+
+function getselectedinputs(e) {
+    if ($(e).val() != '') {
+
+        $('#joininputjson2').val($(e).val());
+        $('#joininputjson2').trigger('change');
+    } else {
+        $('#analyze_parent2').html('');
+        $('#joininputjson2').val('');
+    }
+
 }
