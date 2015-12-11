@@ -148,6 +148,33 @@ function processPlumber(element) {
                 drawChart(json);
             }
         });
+        $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+
+                drawChart(json);
+    }
+        });
+    }
+    if (element.name == 'plumber_select_visualize') {
+        $('#joininputbox').css('display', 'block');
+        $('#analyze_parent').html();
+        $('#firstinputname').val('');
+        $('#joininputjson').val('');
+        $('#available_inputs').html('<option>Select Input</option>');
+        $('#pipeline-input-tree').empty();
+        $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
+        element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
+        $.ajax({
+            url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+                drawChart(json);
+            }
+        });
     }
     if (element.name == 'plumber_select') {
 
