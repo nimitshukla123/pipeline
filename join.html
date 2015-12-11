@@ -46,6 +46,7 @@
         <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <script type="text/javascript" src="./js/sqlGenerator/squel-basic.min.js"/>
 
         <!-- Startup image for web apps -->
         <link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
@@ -558,535 +559,525 @@
                                                 <code>*input JSON Payload</code>
                                             </div>
 
+                                            <a id="select-query-build" disabled="" class="btn btn-success" href="javascript:void(0);" onclick="updateSql()" style="float: right;margin-right: 10px">PREVIEW</a>
                                         </div>
                                     </div>
                                     <!-- end widget content -->
 
-                                </div>
-                                <!-- end widget div -->
+                                    <!-- end widget -->
+                                    </article>
+                                    <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none"  id="selectinputsbox">-->
+                                    <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="selectinputsbox">
 
-                            </div>
-                            <!-- end widget -->
+                                        <!-- Widget ID (each widget will need unique ID)-->
+                                        <!--<div class="selectsubmitbox"> </div>-->
+                                        <div class="jarviswidget  jarviswidget-color-greenDark" id="wid-id-rgt-inputs" data-widget-editbutton="false"
+                                             data-widget-custombutton="false"  data-widget-deletebutton="false" style="display: none"
+                                             >
 
-                        </article>
-                        <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display: none"  id="selectinputsbox">-->
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="selectinputsbox">
+                                            <header>
+                                                <h2>Select Input to Join</h2>
+                                            </header>
 
-                            <!-- Widget ID (each widget will need unique ID)-->
-                            <!--<div class="selectsubmitbox"> </div>-->
-                            <div class="jarviswidget  jarviswidget-color-greenDark" id="wid-id-rgt-inputs" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"  data-widget-deletebutton="false" style="display: none"
-                                 >
+                                            <!-- widget div-->
+                                            <div>
 
-                                <header>
-                                    <h2>Select Input to Join</h2>
-                                </header>
-
-                                <!-- widget div-->
-                                <div>
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-                                        <input class="form-control" type="text">	
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body">
-                                        <div class="row">
-                                            <label for="select-1" class="col-md-3 control-label ">Inputs</label>
-                                            <div class="col-md-4">
-                                                <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs(this)">
-                                                    <option value="">Select Inputs</option>
-                                                </select>
-
-                                            </div>
-                                            <a style="float: right;margin-right: 40px" onclick="joinprogressshow()" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Proceed</a>
-
-                                        </div> 
-                                        <!--                                        <div class="row">
-                                                                                    <label for="select-1" class="col-md-3 control-label ">JOIN Type</label>
-                                                                                    <div class="col-md-4">
-                                                                                        <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs()">
-                                                                                            <option value="">Left JOIN</option>
-                                                                                            <option value="">Right JOIN </option>
-                                                                                        </select>
-                                        
-                                                                                    </div>
-                                                                                </div> -->
-                                        <div class="form-group">
-                                            <legend>JSON Payload</legend>
-                                            <fieldset>
-                                                <section>
-                                                    <label class="textarea"> 										
-                                                        <textarea class="form-control custom-scroll filterbox" rows="3" id="joininputjson2" name="joininputjson2" style="width: 456px; height: 60px;"></textarea>
-
-                                                    </label>
-
-                                                </section>
-                                            </fieldset></div>
-                                        <div class="row no-padding">
-                                            <div class="table-responsive" id="analyze_parent2">
-                                                <code>*input JSON Payload</code>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end widget content -->
-
-                                </div>
-                                <!-- end widget div -->
-
-                            </div>
-                            <!-- end widget -->
-
-                        </article>
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
-
-                            <div id="dialog_simple" title="Dialog Simple Title">
-                                <p>
-                                    Do You want to add more inputs ? <br/>
-                                    Click OK to add more inputs or click Cancel to go to main page !
-                                </p>
-
-                                <div class="hr hr-12 hr-double"></div>
-
-
-
-
-                            </div>
-                        </article>
-                        <!-- a blank row to get started -->
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
-                            <div class="jarviswidget jarviswidget-color-blueDark" id="selectsqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
-                                 >
-                                <header>
-                                    <h2>SQL Preview</h2>
-                                </header>
-
-                                <!-- widget div-->
-                                <div>
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-                                        <input class="form-control" type="text">	
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body  form-horizontal">
-                                        <div class="form-group">
-
-                                            <div class="col-md-8">
-                                                <code>SQL preview shown here</code>
-
-                                            </div>
-                                            <div class="col-md-4"><a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
-                                                <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
-
-
-                                            </div>
-                                        </div>    
-
-
-                                    </div></div></div>
-                            <div class="jarviswidget jarviswidget-color-orangeDark" id="sqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
-                                 >
-                                <header>
-                                    <h2>Conditions & SQL Preview</h2>
-                                </header>
-
-                                <!-- widget div-->
-                                <div>
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-                                        <input class="form-control" type="text">	
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body  form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label" for="select-1">Condition</label>
-
-                                            <div class="col-md-2">
-                                                <select  id="firstinputcolumns" name="firstinputcolumns" class="form-control">
-                                                    <option value="">Input1.id</option>
-                                                    <option value="">Input1.name</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <select id="conditionsselect" name="conditionsselect" class="form-control">
-                                                    <option value="">Equal to</option>
-                                                    <option value="">Greater Than</option>
-                                                    <option value="">Less Than</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <select id="secondinputcolumns" name="secondinputcolumns" class="form-control">
-                                                    <option value="">Input2.id</option>
-                                                    <option value="">Input2.salary</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <a id="addjoincondition" href="javascript:void(0);" class="btn btn-success">Add</a>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label" for="select-1">SQL Preview</label>
-                                            <div class="col-md-3">
-                                                <code>Sample SQL is shown there</code>
-                                            </div>
-
-                                        </div>
-
-                                    </div></div></div>
-                            <!-- Widget ID (each widget will need unique ID)-->
-                            <div class="jarviswidget jarviswidget-color-pink" id="wid-id-joinprv" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
-                                 >
-                                <!-- widget options:
-                                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-                                        
-                                        data-widget-colorbutton="false"	
-                                        data-widget-editbutton="false"
-                                        data-widget-togglebutton="false"
-                                        data-widget-deletebutton="false"
-                                        data-widget-fullscreenbutton="false"
-                                        data-widget-custombutton="false"
-                                        data-widget-collapsed="true" 
-                                        data-widget-sortable="false"
-                                        
-                                -->
-                                <header>
-                                    <h2>Join Preview</h2>
-                                </header>
-
-                                <!-- widget div-->
-                                <div>
-
-                                    <!-- widget edit box -->
-                                    <div class="jarviswidget-editbox">
-                                        <!-- This area used as dropdown edit box -->
-                                        <input class="form-control" type="text">	
-                                    </div>
-                                    <!-- end widget edit box -->
-
-                                    <!-- widget content -->
-                                    <div class="widget-body  form-horizontal">
-
-                                        <fieldset>
-                                            <div id="submitbox" class="form-group">
-                                                <div class="col-sm-offset-1 col-sm-5">
-                                                    <ul class="list-unstyled" id="external-events">
-                                                        <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
-                                                            <span data-icon="fa-time" class="bg-color-darken txt-color-white">Input 1</span>
-                                                            <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
-                                                        <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
-                                                            <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 2</span>
-                                                            <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
-                                                        <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
-                                                            <span data-icon="fa-alert" class="bg-color-red txt-color-white">Input 3</span>
-                                                            <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
-                                                        <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
-                                                            <span data-icon="fa-time" class="bg-color-darken txt-color-white">Input 4</span>
-                                                            <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
-                                                        <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
-                                                            <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 5</span>
-                                                            <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
-                                                    </ul></div>
-                                                <div class="col-sm-offset-0 col-sm-5">
-                                                    <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
-                                                    <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
-
-
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
+                                                    <input class="form-control" type="text">	
                                                 </div>
+                                                <!-- end widget edit box -->
+
+                                                <!-- widget content -->
+                                                <div class="widget-body">
+                                                    <div class="row">
+                                                        <label for="select-1" class="col-md-3 control-label ">Inputs</label>
+                                                        <div class="col-md-4">
+                                                            <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs(this)">
+                                                                <option value="">Select Inputs</option>
+                                                            </select>
+
+                                                        </div>
+                                                        <a style="float: right;margin-right: 40px" onclick="joinprogressshow()" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Proceed</a>
+
+                                                    </div> 
+                                                    <!--                                        <div class="row">
+                                                                                                <label for="select-1" class="col-md-3 control-label ">JOIN Type</label>
+                                                                                                <div class="col-md-4">
+                                                                                                    <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs()">
+                                                                                                        <option value="">Left JOIN</option>
+                                                                                                        <option value="">Right JOIN </option>
+                                                                                                    </select>
+                                                    
+                                                                                                </div>
+                                                                                            </div> -->
+                                                    <div class="form-group">
+                                                        <legend>JSON Payload</legend>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="textarea"> 										
+                                                                    <textarea class="form-control custom-scroll filterbox" rows="3" id="joininputjson2" name="joininputjson2" style="width: 456px; height: 60px;"></textarea>
+
+                                                                </label>
+
+                                                            </section>
+                                                        </fieldset></div>
+                                                    <div class="row no-padding">
+                                                        <div class="table-responsive" id="analyze_parent2">
+                                                            <code>*input JSON Payload</code>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end widget content -->
+
                                             </div>
-                                        </fieldset>
-                                    </div>
-                                    <!-- end widget content -->
+                                            <!-- end widget div -->
+
+                                        </div>
+                                        <!-- end widget -->
+
+                                    </article>
+                                    <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+
+                                        <div id="dialog_simple" title="Dialog Simple Title">
+                                            <p>
+                                                Do You want to add more inputs ? <br/>
+                                                Click OK to add more inputs or click Cancel to go to main page !
+                                            </p>
+
+                                            <div class="hr hr-12 hr-double"></div>
+
+
+
+
+                                        </div>
+                                    </article>
+                                    <!-- a blank row to get started -->
+                                    <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                                        <div class="jarviswidget jarviswidget-color-blueDark" id="selectsqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
+                                             data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
+                                             >
+                                            <header>
+                                                <h2>SQL Preview</h2>
+                                            </header>
+
+                                            <!-- widget div-->
+                                            <div>
+
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
+                                                    <input class="form-control" type="text">	
+                                                </div>
+                                                <!-- end widget edit box -->
+
+                                                <!-- widget content -->
+                                                <div class="widget-body  form-horizontal dynamic-sql-generation">
+                                                    <div class="form-group">
+
+                                                        <div class="col-md-8 sql-data">
+                                                            <code>SQL preview shown here</code>
+
+                                                        </div>
+                                                        <div class="col-md-4"><a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
+                                                            <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
+
+
+                                                        </div>
+                                                    </div>    
+
+
+                                                </div></div></div>
+                                        <div class="jarviswidget jarviswidget-color-orangeDark" id="sqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
+                                             data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
+                                             >
+                                            <header>
+                                                <h2>Conditions & SQL Preview</h2>
+                                            </header>
+
+                                            <!-- widget div-->
+                                            <div>
+
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
+                                                    <input class="form-control" type="text">	
+                                                </div>
+                                                <!-- end widget edit box -->
+
+                                                <!-- widget content -->
+                                                <div class="widget-body  form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label" for="select-1">Condition</label>
+
+                                                        <div class="col-md-2">
+                                                            <select  id="firstinputcolumns" name="firstinputcolumns" class="form-control">
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select id="conditionsselect" name="conditionsselect" class="form-control">
+                                                                <option value="=">Equal to</option>
+                                                                <option value=">">Greater Than</option>
+                                                                <option value="<">Less Than</option>
+                                                                <option value="<">greater Than</option>
+                                                                <option value="<">Less Than equals to</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <select id="secondinputcolumns" name="secondinputcolumns" class="form-control">
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <a id="addjoincondition" onclick="createJoinSql();" href="javascript:void(0);" class="btn btn-success">Add</a>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label" for="select-1">SQL Preview</label>
+                                                        <div class="col-md-7">
+                                                            <code>Sample SQL is shown there</code>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div></div></div>
+                                        <!-- Widget ID (each widget will need unique ID)-->
+                                        <div class="jarviswidget jarviswidget-color-pink" id="wid-id-joinprv" data-widget-deletebutton="false" data-widget-editbutton="false"
+                                             data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
+                                             >
+                                            <!-- widget options:
+                                                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                                                    
+                                                    data-widget-colorbutton="false"	
+                                                    data-widget-editbutton="false"
+                                                    data-widget-togglebutton="false"
+                                                    data-widget-deletebutton="false"
+                                                    data-widget-fullscreenbutton="false"
+                                                    data-widget-custombutton="false"
+                                                    data-widget-collapsed="true" 
+                                                    data-widget-sortable="false"
+                                                    
+                                            -->
+                                            <header>
+                                                <h2>Join Preview</h2>
+                                            </header>
+
+                                            <!-- widget div-->
+                                            <div>
+
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
+                                                    <input class="form-control" type="text">	
+                                                </div>
+                                                <!-- end widget edit box -->
+
+                                                <!-- widget content -->
+                                                <div class="widget-body  form-horizontal">
+
+                                                    <fieldset>
+                                                        <div id="submitbox" class="form-group">
+                                                            <div class="col-sm-offset-1 col-sm-5">
+                                                                <ul class="list-unstyled" id="external-events">
+                                                                    <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
+                                                                        <span data-icon="fa-time" class="bg-color-darken txt-color-white">Input 1</span>
+                                                                        <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
+                                                                    <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
+                                                                        <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 2</span>
+                                                                        <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
+                                                                    <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
+                                                                        <span data-icon="fa-alert" class="bg-color-red txt-color-white">Input 3</span>
+                                                                        <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
+                                                                    <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
+                                                                        <span data-icon="fa-time" class="bg-color-darken txt-color-white">Input 4</span>
+                                                                        <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
+                                                                    <li style="position: relative; z-index: auto; left: 0px; top: 0px;" class="ui-draggable">
+                                                                        <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 5</span>
+                                                                        <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
+                                                                </ul></div>
+                                                            <div class="col-sm-offset-0 col-sm-5">
+                                                                <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
+                                                                <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <!-- end widget content -->
+
+                                            </div>
+                                            <!-- end widget div -->
+                                        </div>
+                                        <!-- end widget -->
+
+                                    </article>
+
+                                    <!-- end row -->
+
+                                    </section>
+
+                                    <!-- end widget grid -->
 
                                 </div>
-                                <!-- end widget div -->
+                                <!-- END MAIN CONTENT -->
+
                             </div>
-                            <!-- end widget -->
+                            <!-- END MAIN PANEL -->
 
-                        </article>
+                            <!-- PAGE FOOTER -->
+                            <div class="page-footer">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <span class="txt-color-white">Pipeline <span class="hidden-xs"></span> © 2015-2016</span>
+                                    </div>
 
-                        <!-- end row -->
+                                </div>
+                            </div>
+                            <!-- END PAGE FOOTER -->
 
-                </section>
+                            <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+                            Note: These tiles are completely responsive,
+                            you can add as many as you like
+                            -->
+                            <div id="shortcut">
+                                <ul>
+                                    <li>
+                                        <a href="inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END SHORTCUT AREA -->
 
-                <!-- end widget grid -->
+                            <!--================================================== -->
 
-            </div>
-            <!-- END MAIN CONTENT -->
+                            <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+                            <script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
 
-        </div>
-        <!-- END MAIN PANEL -->
+                            <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+                            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                            <script>
+                                                                if (!window.jQuery) {
+                                                                    document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+                                                                }
+                            </script>
 
-        <!-- PAGE FOOTER -->
-        <div class="page-footer">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <span class="txt-color-white">Pipeline <span class="hidden-xs"></span> © 2015-2016</span>
-                </div>
+                            <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+                            <script>
+                                                                if (!window.jQuery.ui) {
+                                                                    document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+                                                                }
+                            </script>
 
-            </div>
-        </div>
-        <!-- END PAGE FOOTER -->
+                            <!-- IMPORTANT: APP CONFIG -->
+                            <script src="js/app.config.js"></script>
 
-        <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-        Note: These tiles are completely responsive,
-        you can add as many as you like
-        -->
-        <div id="shortcut">
-            <ul>
-                <li>
-                    <a href="inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
-                </li>
-                <li>
-                    <a href="calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
-                </li>
-                <li>
-                    <a href="gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
-                </li>
-                <li>
-                    <a href="invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
-                </li>
-                <li>
-                    <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
-                </li>
-                <li>
-                    <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
-                </li>
-            </ul>
-        </div>
-        <!-- END SHORTCUT AREA -->
+                            <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+                            <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
 
-        <!--================================================== -->
+                            <!-- BOOTSTRAP JS -->
+                            <script src="js/bootstrap/bootstrap.min.js"></script>
 
-        <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-        <script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
+                            <!-- CUSTOM NOTIFICATION -->
+                            <script src="js/notification/SmartNotification.min.js"></script>
 
-        <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-                                                            if (!window.jQuery) {
-                                                    document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
-                                                    }
-        </script>
+                            <!-- JARVIS WIDGETS -->
+                            <script src="js/smartwidgets/jarvis.widget.min.js"></script>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script>
-                                                            if (!window.jQuery.ui) {
-                                                    document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
-                                                    }
-        </script>
+                            <!-- EASY PIE CHARTS -->
+                            <script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
-        <!-- IMPORTANT: APP CONFIG -->
-        <script src="js/app.config.js"></script>
+                            <!-- SPARKLINES -->
+                            <script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
-        <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-        <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
+                            <!-- JQUERY VALIDATE -->
+                            <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
-        <!-- BOOTSTRAP JS -->
-        <script src="js/bootstrap/bootstrap.min.js"></script>
+                            <!-- JQUERY MASKED INPUT -->
+                            <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
-        <!-- CUSTOM NOTIFICATION -->
-        <script src="js/notification/SmartNotification.min.js"></script>
+                            <!-- JQUERY SELECT2 INPUT -->
+                            <script src="js/plugin/select2/select2.min.js"></script>
 
-        <!-- JARVIS WIDGETS -->
-        <script src="js/smartwidgets/jarvis.widget.min.js"></script>
+                            <!-- JQUERY UI + Bootstrap Slider -->
+                            <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
-        <!-- EASY PIE CHARTS -->
-        <script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+                            <!-- browser msie issue fix -->
+                            <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
 
-        <!-- SPARKLINES -->
-        <script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+                            <!-- FastClick: For mobile devices -->
+                            <script src="js/plugin/fastclick/fastclick.min.js"></script>
 
-        <!-- JQUERY VALIDATE -->
-        <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+                            <!--[if IE 8]>
+                    
+                            <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+                    
+                            <![endif]-->
 
-        <!-- JQUERY MASKED INPUT -->
-        <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+                            <!-- Demo purpose only -->
+                            <!--<script src="js/demo.min.js"></script>-->
 
-        <!-- JQUERY SELECT2 INPUT -->
-        <script src="js/plugin/select2/select2.min.js"></script>
+                            <!-- MAIN APP JS FILE -->
+                            <script src="js/app.min.js"></script>
 
-        <!-- JQUERY UI + Bootstrap Slider -->
-        <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+                            <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
+                            <!-- Voice command : plugin -->
+                            <script src="js/speech/voicecommand.min.js"></script>
 
-        <!-- browser msie issue fix -->
-        <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+                            <!-- SmartChat UI : plugin -->
+                            <script src="js/smart-chat-ui/smart.chat.ui.min.js"></script>
+                            <script src="js/smart-chat-ui/smart.chat.manager.min.js"></script>
 
-        <!-- FastClick: For mobile devices -->
-        <script src="js/plugin/fastclick/fastclick.min.js"></script>
+                            <!-- PAGE RELATED PLUGIN(S) 
+                            <script src="..."></script>-->
 
-        <!--[if IE 8]>
+                            <script type="text/javascript">
 
-        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+                                                                $(document).ready(function () {
 
-        <![endif]-->
+                                                                    /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                                                                     *
+                                                                     * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                                                                     *
+                                                                     * // activate tooltips
+                                                                     * $("[rel=tooltip]").tooltip();
+                                                                     *
+                                                                     * // activate popovers
+                                                                     * $("[rel=popover]").popover();
+                                                                     *
+                                                                     * // activate popovers with hover states
+                                                                     * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                                                                     *
+                                                                     * // activate inline charts
+                                                                     * runAllCharts();
+                                                                     *
+                                                                     * // setup widgets
+                                                                     * setup_widgets_desktop();
+                                                                     *
+                                                                     * // run form elements
+                                                                     * runAllForms();
+                                                                     *
+                                                                     ********************************
+                                                                     *
+                                                                     * pageSetUp() is needed whenever you load a page.
+                                                                     * It initializes and checks for all basic elements of the page
+                                                                     * and makes rendering easier.
+                                                                     *
+                                                                     */
 
-        <!-- Demo purpose only -->
-        <!--<script src="js/demo.min.js"></script>-->
+                                                                    pageSetUp();
+                                                                    /*
+                                                                     * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                                     * eg alert("my home function");
+                                                                     * 
+                                                                     * var pagefunction = function() {
+                                                                     *   ...
+                                                                     * }
+                                                                     * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                                     * 
+                                                                     * TO LOAD A SCRIPT:
+                                                                     * var pagefunction = function (){ 
+                                                                     *  loadScript(".../plugin.js", run_after_loaded);	
+                                                                     * }
+                                                                     * 
+                                                                     * OR
+                                                                     * 
+                                                                     * loadScript(".../plugin.js", run_after_loaded);
+                                                                     */
 
-        <!-- MAIN APP JS FILE -->
-        <script src="js/app.min.js"></script>
+                                                                })
 
-        <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
-        <!-- Voice command : plugin -->
-        <script src="js/speech/voicecommand.min.js"></script>
+                            </script>
 
-        <!-- SmartChat UI : plugin -->
-        <script src="js/smart-chat-ui/smart.chat.ui.min.js"></script>
-        <script src="js/smart-chat-ui/smart.chat.manager.min.js"></script>
+                            <!-- Your GOOGLE ANALYTICS CODE Below -->
+                            <script type="text/javascript">
+                                var _gaq = _gaq || [];
+                                _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+                                _gaq.push(['_trackPageview']);
+                                (function () {
+                                    var ga = document.createElement('script');
+                                    ga.type = 'text/javascript';
+                                    ga.async = true;
+                                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                    var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(ga, s);
+                                })();</script>
+                            <script>
+                                $(document).ready(function () {
+                                    //
+                                });
+                                $('#dialog_simple').dialog({
+                                    autoOpen: false,
+                                    modal: true,
+                                    title: "Input Saved Successfully",
+                                    buttons: [{
+                                            html: "Cancel",
+                                            "class": "btn btn-default",
+                                            click: function () {
+                                                $(this).dialog("close");
+                                            }
+                                        }, {
+                                            html: "<i class='fa fa-check'></i>&nbsp; OK",
+                                            "class": "btn btn-primary",
+                                            click: function () {
+                                                $(this).dialog("close");
+                                                $('#pipelinename').prop('disabled', 'disabled')
+                                                $('#procnwpipe').prop('disabled', 'disabled')
+                                                $('#inputname').val('')
+                                                $('#parent_json_value').val('')
+                                                $('#analyze_parent').html('<code>*input JSON Payload</code>');
+                                            }
+                                        }]
+                                });</script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
+                                    $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function (e) {
+                                        var children = $(this).parent('li.parent_li').find(' > ul > li');
+                                        if (children.is(':visible')) {
+                                            children.hide('fast');
+                                            $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+                                        } else {
+                                            children.show('fast');
+                                            $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+                                        }
+                                    })
+                                    $.ajax({
+                                        url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        success: function (json) {
+                                            $.each(json, function (i, optionHtml) {
+                                                //$('#plumber').append(optionHtml['plumber_select']);                    
+                                                $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                                $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
+                                            });
+                                        }
+                                    });
+                                });
 
-        <!-- PAGE RELATED PLUGIN(S) 
-        <script src="..."></script>-->
+                            </script>
+                            <script src="./js/jquery.dynatable.js"></script>
+                            <script src="./js/jsonvalidator.js"></script>
+                            <script src="./js/pipeline.js"></script>
+                            </body>
 
-        <script type="text/javascript">
-
-                                                            $(document).ready(function () {
-
-                                                    /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-                                                     *
-                                                     * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-                                                     *
-                                                     * // activate tooltips
-                                                     * $("[rel=tooltip]").tooltip();
-                                                     *
-                                                     * // activate popovers
-                                                     * $("[rel=popover]").popover();
-                                                     *
-                                                     * // activate popovers with hover states
-                                                     * $("[rel=popover-hover]").popover({ trigger: "hover" });
-                                                     *
-                                                     * // activate inline charts
-                                                     * runAllCharts();
-                                                     *
-                                                     * // setup widgets
-                                                     * setup_widgets_desktop();
-                                                     *
-                                                     * // run form elements
-                                                     * runAllForms();
-                                                     *
-                                                     ********************************
-                                                     *
-                                                     * pageSetUp() is needed whenever you load a page.
-                                                     * It initializes and checks for all basic elements of the page
-                                                     * and makes rendering easier.
-                                                     *
-                                                     */
-
-                                                    pageSetUp();
-                                                            /*
-                                                             * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                                             * eg alert("my home function");
-                                                             * 
-                                                             * var pagefunction = function() {
-                                                             *   ...
-                                                             * }
-                                                             * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                                             * 
-                                                             * TO LOAD A SCRIPT:
-                                                             * var pagefunction = function (){ 
-                                                             *  loadScript(".../plugin.js", run_after_loaded);	
-                                                             * }
-                                                             * 
-                                                             * OR
-                                                             * 
-                                                             * loadScript(".../plugin.js", run_after_loaded);
-                                                             */
-
-                                                    })
-
-        </script>
-
-        <!-- Your GOOGLE ANALYTICS CODE Below -->
-        <script type="text/javascript">
-                    var _gaq = _gaq || [];
-                    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-                    _gaq.push(['_trackPageview']);
-                    (function () {
-                    var ga = document.createElement('script');
-                            ga.type = 'text/javascript';
-                            ga.async = true;
-                            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(ga, s);
-                    })();</script>
-        <script>
-                    $(document).ready(function () {
-            //
-                    });
-                    $('#dialog_simple').dialog({
-            autoOpen : false,
-                    modal : true,
-                    title : "Input Saved Successfully",
-                    buttons : [{
-                    html : "Cancel",
-                            "class" : "btn btn-default",
-                            click : function() {
-                            $(this).dialog("close");
-                            }
-                    }, {
-                    html : "<i class='fa fa-check'></i>&nbsp; OK",
-                            "class" : "btn btn-primary",
-                            click : function() {
-                            $(this).dialog("close");
-                                    $('#pipelinename').prop('disabled', 'disabled')
-                                    $('#procnwpipe').prop('disabled', 'disabled')
-                                    $('#inputname').val('')
-                                    $('#parent_json_value').val('')
-                                    $('#analyze_parent').html('<code>*input JSON Payload</code>');
-                            }
-                    }]
-            });</script>
-        <script>
-                    $(document).ready(function () {
-            $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
-                    $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
-            var children = $(this).parent('li.parent_li').find(' > ul > li');
-                    if (children.is(':visible')) {
-            children.hide('fast');
-                    $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
-            } else {
-            children.show('fast');
-                    $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
-            }})
-                    $.ajax({
-                    url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (json) {
-                            $.each(json, function (i, optionHtml) {
-                            //$('#plumber').append(optionHtml['plumber_select']);                    
-                            $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                                    $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                            });
-                            }
-                    });
-            });</script>
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="./js/jquery.js"></script>-->
-        <!--        <script>
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-            </script>
-                <script src="./js/jquery.js"></script>-->
-
-        <script src="./js/jquery.dynatable.js"></script>
-        <script src="./js/jsonvalidator.js"></script>
-        <script src="./js/pipeline.js"></script>
-    </body>
-
-</html>
+                            </html>
 

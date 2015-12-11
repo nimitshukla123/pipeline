@@ -8,7 +8,8 @@
 function showChild() {
 //    console.log("HERE IN showChild");
 }
-
+var countArray = [];
+var countJoinArray = [];
 function ProcessOperationChange(element) {
 //    console.log("HERE IN OPERATION CHANGE")
 //    console.log(element.name)
@@ -108,55 +109,57 @@ function showChildDiv() {
 function processPlumber(element) {
 
     $('#select-pipeline-chart').hide();
-    $('#wid-id-chart').show();
-
     $('#submitbox').css('display', 'block');
-    $('#inputtreebox').css('display', 'block');
-    $('#chart-box').css('display', 'block');
-    $('#inputjsonbox').css('display', 'block');
-
-    //element.nextElementSibling.value=element.value;
     if (element.name == 'plumber_name_select') {
         $('#joininputbox').css('display', 'block');
-                $('#analyze_parent').html();
-                $('#firstinputname').val('');
-                $('#joininputjson').val('');
-                $('#available_inputs').html('<option>Select Input</option>');
-                $('#pipeline-input-tree').empty();
+        $('#analyze_parent').html();
+        $('#firstinputname').val('');
+        $('#joininputjson').val('');
+        $('#available_inputs').html('<option>Select Input</option>');
+        $('#pipeline-input-tree').empty();
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
-        $.ajax({
-            url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
-            type: 'GET',
-            dataType: 'json',
-            success: function (json) {
-                $('#joininputbox').css('display', 'block');
-                $('#analyze_parent').html();
-                $('#firstinputname').val('');
-                $('#joininputjson').val('');
-                $('#available_inputs').html('<option>Select Input</option>');
-                $('#pipeline-input-tree').empty();
-                $.each(json, function (i, optionHtml) {
+        if (element.value !== '') {
+            $.ajax({
+                url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
+                type: 'GET',
+                dataType: 'json',
+                success: function (json) {
+                    $('#joininputbox').css('display', 'block');
+                    $('#analyze_parent').html();
+                    $('#firstinputname').val('');
+                    $('#joininputjson').val('');
+                    $('#available_inputs').html('<option>Select Input</option>');
+                    $('#inputtreebox').css('display', 'block');
+                    $('#chart-box').css('display', 'block');
+                    $('#inputjsonbox').css('display', 'block');
+                    $('#pipeline-input-tree').empty();
+                    $.each(json, function (i, optionHtml) {
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
-                    $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
-                    $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
-                });
-                if ($('#pipeline-input-tree').hasClass('joinpage')) {
-                } else {
-                    $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
+                        $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
+                        $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
+                    });
+                    if ($('#pipeline-input-tree').hasClass('joinpage')) {
+                    } else {
+                        $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
+                    }
+                    drawChart(json);
                 }
-                drawChart(json);
-            }
-        });
-        $.ajax({
-            url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
-            type: 'GET',
-            dataType: 'json',
-            success: function (json) {
+            });
+            $.ajax({
+                url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
+                type: 'GET',
+                dataType: 'json',
+                success: function (json) {
 
-                drawChart(json);
-    }
-        });
+                    drawChart(json);
+                }
+            });
+        } else {
+            $('#inputtreebox').css('display', 'none');
+            $('#chart-box').css('display', 'none');
+            $('#inputjsonbox').css('display', 'none');
+        }
     }
     if (element.name == 'plumber_select_visualize') {
         $('#joininputbox').css('display', 'block');
@@ -167,14 +170,20 @@ function processPlumber(element) {
         $('#pipeline-input-tree').empty();
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
-        $.ajax({
-            url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
-            type: 'GET',
-            dataType: 'json',
-            success: function (json) {
-                drawChart(json);
-            }
-        });
+        if (element.value !== '') {
+            $.ajax({
+                url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
+                type: 'GET',
+                dataType: 'json',
+                success: function (json) {
+                    $('#wid-id-chart').show();
+                    drawChart(json);
+                }
+            });
+        }
+        else {
+            $('#wid-id-chart').hide();
+        }
     }
     if (element.name == 'plumber_select') {
 
@@ -499,15 +508,19 @@ $(function () { //shorthand document.ready function
 //            console.log(kv);
             var count = 0;
             if ($('#joininputjson').hasClass('filterbox')) {
+                $('#firstinputcolumns').empty();
+                $('#firstinputcolumns').append('<option value="">Select Field</option>');
                 $.each(kv, function (i, key) {
+                    $('#firstinputcolumns').append('<option value=' + i + '>' + i + '</option>');
                     htmlStr = htmlStr + "<tr> \
-                            <td><input type='checkbox' name=" + radioParent + count + "/>\
-                <td> " + i + " </td>\
+                            <td><input id =" + radioParent + count + " onclick='resetSql()' data-attr=" + count + " type='checkbox' name=" + radioParent + count + ">\
+                <td id='field_" + count + "'> " + i + " </td>\
                             <td>String</td>\
-                            <td><select class='form-control' name=" + radioParent + count + ">\
-<option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
-                <td> <input class='form-control' type='text' value='" + key + "'/></td>\
+                            <td><select id='filter_" + count + "' class='form-control' name=" + radioParent + count + ">\
+<option value=''>Select Opertation</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
+                <td> <input class='form-control' id=value_" + count + " type='text' value='" + key + "'/></td>\
                 </tr>"
+                    countArray.push(count);
                     count++;
                 });
             } else {
@@ -583,18 +596,21 @@ $(function () { //shorthand document.ready function
         if (e.target.id === 'parent_json_value') {
             var data = $('#parent_json_value').serializeArray();
             var radioParent = 'parent_radio_';
+            var radioParent2 = 'parent_radio2_';
             var search = 'parent_search_';
             var analyzeId = 'analyze_parent';
             var operationId = 'operation_id';
         } else if (e.target.id === 'child_json_value') {
             var data = $('#child_json_value').serializeArray();
             var radioParent = 'child_radio_';
+            var radioParent2 = 'parent_radio2_';
             var search = 'child_search_';
             var analyzeId = 'analyze_child';
             var operationId = 'operation_id';
         } else if (e.target.id === 'joininputjson2') {
             var data = $('#joininputjson2').serializeArray();
             var radioParent = 'parent_radio_';
+            var radioParent2 = 'parent_radio2_';
             var search = 'parent_search_';
             var analyzeId = 'analyze_parent2';
             var operationId = 'operation_id';
@@ -613,15 +629,19 @@ $(function () { //shorthand document.ready function
 //            console.log(kv);
             var count = 0;
             if ($('#joininputjson2').hasClass('filterbox')) {
+                $('#secondinputcolumns').empty();
+                $('#secondinputcolumns').append('<option value="">Select Field</option>');
                 $.each(kv, function (i, key) {
+                    $('#secondinputcolumns').append('<option value=' + i + '>' + i + '</option>');
                     htmlStr = htmlStr + "<tr> \
-                            <td><input type='checkbox' name=" + radioParent + count + "/>\
-                <td> " + i + " </td>\
+                            <td><input id=" + radioParent2 + count + " type='checkbox' name=" + radioParent2 + count + "/>\
+                <td id=" + radioParent2 + 'field_' + count + "> " + i + " </td>\
                             <td>String</td>\
-                            <td><select class='form-control' name=" + radioParent + count + ">\
-<option value='greater'>Greater Than</option><option value='less'>Less Than</option><option value='like'>Like</option><option value='notlike'>Not Like</option></select></td>\
-                <td> <input class='form-control' type='text' value='" + key + "'/></td>\
+                            <td><select id=" + radioParent2 + 'filter_' + count + " class='form-control' name=" + radioParent2 + count + ">\
+<option value=''>Select Opertation</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
+                <td> <input class='form-control' id=" + radioParent2 + 'input_' + count + " type='text' value='" + key + "'/></td>\
                 </tr>"
+                    countJoinArray.push(count);
                     count++;
                 });
             } else {
@@ -764,10 +784,13 @@ function  showjoininputboxfinal() {
     if ($('.inputlis').hasClass('activeinput')) {
         $('#addjoinbtn').toggleClass('btn-warning');
         $('#addjoinbtn').toggleClass('btn-success');
+        $('#addjoinbtn').toggleClass('join-is-active');
         $('#selectsqlpreview').toggle();
         $('#wid-id-rgt-inputs').toggle();
         $('#sqlpreview').hide();
         $('#wid-id-joinprv').hide();
+        $('#select-query-build').toggle();
+        jQuery('.sql-data').find('code').html('SQL preview shown here');
         updateJoinInputList();
     } else {
         alert('first Select Input');
@@ -798,6 +821,7 @@ function fillinput(e) {
     $(e).addClass('activeinput').removeClass('inactiveinput');
     $('#sqlpreview').hide();
     $('#wid-id-joinprv').hide();
+    $('#select-query-build').removeAttr('disabled');
     updateJoinInputList();
 
 
@@ -807,7 +831,6 @@ function updateJoinInputList() {
     var options = '<option value="">Select Input</input>';
     $('.inactiveinput').each(function () {
         options += '<option value=' + $(this).attr('data-json') + '>' + $(this).text() + '</option>';
-
     });
     $('#joininputjson2').val('');
     $('#analyze_parent2').html('');
@@ -823,5 +846,116 @@ function getselectedinputs(e) {
         $('#analyze_parent2').html('');
         $('#joininputjson2').val('');
     }
+
+}
+
+function updateSql(e) {
+    var sqlObjSelect = '';
+    var tabel = $('#firstinputname').val();
+    jQuery.each(countArray, function (i, val) {
+        if (jQuery('#parent_radio_' + val).prop('checked')) {
+            var fieldname = $('#field_' + val).html();
+            var filter = $('#filter_' + val).val();
+            var value = $('#value_' + val).val();
+            if (filter !== '') {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(fieldname).where(fieldname + filter + ' "' + value + '"');
+                } else {
+                    sqlObjSelect = squel.select().field(fieldname).from(tabel).where(fieldname + filter + ' "' + value + '"');
+                }
+            } else {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(fieldname);
+                } else {
+                    sqlObjSelect = squel.select().field(fieldname).from(tabel);
+                }
+            }
+        }
+
+    });
+    jQuery('.sql-data').find('code').html(sqlObjSelect.toString());
+}
+function resetSql() {
+    sqlObjSelect = '';
+}
+
+function createJoinSql() {
+    var sqlObjSelect = '';
+    var tabel1 = $('#firstinputname').val();
+    var selectedFieldTable1 = 0;
+    var selectedFieldTable2 = 0;
+    var tabel2 = $('#available_inputs :selected').text();
+    var joinColumn1 = $('#firstinputcolumns').val();
+    var joinCodition = $('#conditionsselect').val();
+    var joinColumn2 = $('#secondinputcolumns').val();
+    jQuery.each(countArray, function (i, val) {
+        if (jQuery('#parent_radio_' + val).prop('checked')) {
+            selectedFieldTable1 = 1;
+            var fieldname = $.trim($('#field_' + val).text());
+            var filter = $('#filter_' + val).val();
+            var value = $('#value_' + val).val();
+            if (filter !== '') {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(tabel1 + '.' + fieldname).where(tabel1 + '.' + fieldname + filter + ' "' + value + '"');
+                } else {
+                    sqlObjSelect = squel.select().field(tabel1 + '.' + fieldname).where(tabel1 + '.' + fieldname + filter + ' "' + value + '"');
+                }
+            } else {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(tabel1 + '.' + fieldname);
+                } else {
+                    sqlObjSelect = squel.select().field(tabel1 + '.' + fieldname);
+                }
+            }
+        }
+
+    });
+    jQuery.each(countJoinArray, function (i, val) {
+        if (jQuery('#parent_radio2_' + val).prop('checked')) {
+            selectedFieldTable2 = 1;
+            var fieldname = $.trim($('#parent_radio2_field_' + val).text());
+            var filter = $('#parent_radio2_filter_' + val).val();
+            var value = $('#parent_radio2_input_' + val).val();
+            if (filter !== '') {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(tabel2 + '.' + fieldname).where(tabel2 + '.' + fieldname + filter + ' "' + value + '"');
+                } else {
+                    sqlObjSelect = squel.select().field(tabel2 + '.' + fieldname).where(tabel2 + '.' + fieldname + filter + ' "' + value + '"');
+                }
+            } else {
+                if (sqlObjSelect !== '') {
+                    sqlObjSelect = sqlObjSelect.field(tabel2 + '.' + fieldname);
+                } else {
+                    sqlObjSelect = squel.select().field(tabel2 + '.' + fieldname);
+                }
+            }
+        }
+
+    });
+    if (selectedFieldTable2 == 0 && selectedFieldTable1 == 0) {
+        alert('Please select fields from inputs!');
+    } else {
+        if (joinCodition !== '' && joinColumn1 !== '' && joinColumn2 !== '') {
+            var condition = tabel1 + '.' + joinColumn1 + ' = ' + tabel2 + '.' + joinColumn2;
+            console.log(condition);
+            if (sqlObjSelect !== '') {
+                sqlObjSelect = sqlObjSelect
+                        .from(tabel1)
+                        .join(tabel2, null, condition)
+                        .toString();
+            } else {
+                sqlObjSelect = squel.select()
+                        .from(tabel1)
+                        .join(tabel2, null, condition)
+                        .toString();
+            }
+
+        } else {
+            alert('Please select join condition!');
+        }
+    }
+
+
+    jQuery('#sqlpreview').find('code').html(sqlObjSelect.toString());
 
 }
