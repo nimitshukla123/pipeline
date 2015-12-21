@@ -111,7 +111,7 @@ function processPlumber(element) {
     $('#select-pipeline-chart').hide();
     $('#submitbox').css('display', 'block');
     if (element.name == 'plumber_name_select') {
-        $('#joininputbox').css('display', 'block');
+//        $('#joininputbox').css('display', 'block');
         $('#analyze_parent').html();
         $('#firstinputname').val('');
         $('#joininputjson').val('');
@@ -125,11 +125,11 @@ function processPlumber(element) {
                 type: 'GET',
                 dataType: 'json',
                 success: function (json) {
-                    $('#joininputbox').css('display', 'block');
                     $('#analyze_parent').html();
                     $('#firstinputname').val('');
                     $('#joininputjson').val('');
                     $('#available_inputs').html('<option>Select Input</option>');
+                    $('#wid-id-visu2').css('display', 'block');
                     $('#inputtreebox').css('display', 'block');
 
                     $('#pipeline-input-tree').empty();
@@ -811,6 +811,8 @@ function joinprogressshow() {
 
 //set selected input
 function fillinput(e) {
+          $('#joininputbox').css('display', 'block');
+
     $('#firstinputname').val($(e).text());
     $('#joininputjson').val($(e).attr('data-json'));
     $('#joininputjson').trigger('change');
@@ -849,6 +851,9 @@ function getselectedinputs(e) {
 }
 
 function updateSql(e) {
+    
+          $('#prvbx').css('display', 'block');
+
     var sqlObjSelect = '';
     var tabel = $('#firstinputname').val();
     jQuery.each(countArray, function (i, val) {

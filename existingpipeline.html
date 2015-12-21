@@ -341,7 +341,7 @@
                         <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
                         <ul>
                             <li>
-                                <a href="join.html">Filter/Join/Group By</a>
+                                <a id="joinurl" href="join.html">Filter/Join/Group By</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">MC Learning</a>
@@ -967,6 +967,7 @@
                             "class" : "btn btn-default",
                             click : function() {
                             var pip=$('#plumber_name_select').val();
+                            window.location.href=$("#joinurl").attr('href')+'?pipeline='+pip;
                             
                             }
                     }, {

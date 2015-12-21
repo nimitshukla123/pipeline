@@ -488,7 +488,7 @@
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget jarviswidget-color-magenta" id="wid-id-visu2" data-widget-deletebutton="false" data-widget-editbutton="false"
-                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
+                                 data-widget-custombutton="false"   data-widget-fullscreenbutton="false" style="display: none"
                                  >
                                 <!-- widget options:
                                         usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -558,7 +558,8 @@
 
                         </article>
                         <!-- a blank row to get started -->
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="prvbx"
+                                 style="display: none">
                             <div class="jarviswidget jarviswidget-color-blueDark" id="selectsqlpreview" data-widget-deletebutton="false" data-widget-editbutton="false"
                                  data-widget-custombutton="false"   data-widget-fullscreenbutton="false"
                                  >
@@ -696,12 +697,12 @@
                                                             <span data-icon="fa-pie" class="bg-color-blue txt-color-white">Input 5</span>
                                                             <a class="btn btn-default btn-circle" style="font-size: 31px;padding: 0" href="javascript:void(0);"><i class="fa fa-times-circle"></i></a>                                                </li>
                                                     </ul></div>
-                                                <div class="col-sm-offset-0 col-sm-5">
+<!--                                                <div class="col-sm-offset-0 col-sm-5">
                                                     <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-warning">Submit</a>
                                                     <a style="float: right;margin-right: 40px" id="submitjoinbtn" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
 
 
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </fieldset>
                                     </div>
@@ -716,7 +717,7 @@
 
                         <!-- end row -->
                         <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="joininputbox" style="display: none">-->
-                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="joininputbox">
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="joininputbox" style="display: none">
 
                             <!-- Widget ID (each widget will need unique ID)-->
                             <div class="jarviswidget  jarviswidget-color-pinkDark" id="wid-id-rgt" data-widget-editbutton="false"
@@ -923,16 +924,16 @@
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
-                                        if (!window.jQuery) {
-                                            document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
-                                        }
+                                                if (!window.jQuery) {
+                                                    document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+                                                }
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script>
-                                        if (!window.jQuery.ui) {
-                                            document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
-                                        }
+                                                if (!window.jQuery.ui) {
+                                                    document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+                                                }
         </script>
 
         <!-- IMPORTANT: APP CONFIG -->
@@ -999,59 +1000,59 @@
 
         <script type="text/javascript">
 
-                                        $(document).ready(function () {
+                                                $(document).ready(function () {
 
-                                            /* DO NOT REMOVE : GLOBAL FUNCTIONS!
-                                             *
-                                             * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-                                             *
-                                             * // activate tooltips
-                                             * $("[rel=tooltip]").tooltip();
-                                             *
-                                             * // activate popovers
-                                             * $("[rel=popover]").popover();
-                                             *
-                                             * // activate popovers with hover states
-                                             * $("[rel=popover-hover]").popover({ trigger: "hover" });
-                                             *
-                                             * // activate inline charts
-                                             * runAllCharts();
-                                             *
-                                             * // setup widgets
-                                             * setup_widgets_desktop();
-                                             *
-                                             * // run form elements
-                                             * runAllForms();
-                                             *
-                                             ********************************
-                                             *
-                                             * pageSetUp() is needed whenever you load a page.
-                                             * It initializes and checks for all basic elements of the page
-                                             * and makes rendering easier.
-                                             *
-                                             */
+                                                    /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+                                                     *
+                                                     * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+                                                     *
+                                                     * // activate tooltips
+                                                     * $("[rel=tooltip]").tooltip();
+                                                     *
+                                                     * // activate popovers
+                                                     * $("[rel=popover]").popover();
+                                                     *
+                                                     * // activate popovers with hover states
+                                                     * $("[rel=popover-hover]").popover({ trigger: "hover" });
+                                                     *
+                                                     * // activate inline charts
+                                                     * runAllCharts();
+                                                     *
+                                                     * // setup widgets
+                                                     * setup_widgets_desktop();
+                                                     *
+                                                     * // run form elements
+                                                     * runAllForms();
+                                                     *
+                                                     ********************************
+                                                     *
+                                                     * pageSetUp() is needed whenever you load a page.
+                                                     * It initializes and checks for all basic elements of the page
+                                                     * and makes rendering easier.
+                                                     *
+                                                     */
 
-                                            pageSetUp();
-                                            /*
-                                             * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-                                             * eg alert("my home function");
-                                             * 
-                                             * var pagefunction = function() {
-                                             *   ...
-                                             * }
-                                             * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-                                             * 
-                                             * TO LOAD A SCRIPT:
-                                             * var pagefunction = function (){ 
-                                             *  loadScript(".../plugin.js", run_after_loaded);	
-                                             * }
-                                             * 
-                                             * OR
-                                             * 
-                                             * loadScript(".../plugin.js", run_after_loaded);
-                                             */
+                                                    pageSetUp();
+                                                    /*
+                                                     * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+                                                     * eg alert("my home function");
+                                                     * 
+                                                     * var pagefunction = function() {
+                                                     *   ...
+                                                     * }
+                                                     * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+                                                     * 
+                                                     * TO LOAD A SCRIPT:
+                                                     * var pagefunction = function (){ 
+                                                     *  loadScript(".../plugin.js", run_after_loaded);	
+                                                     * }
+                                                     * 
+                                                     * OR
+                                                     * 
+                                                     * loadScript(".../plugin.js", run_after_loaded);
+                                                     */
 
-                                        })
+                                                })
 
         </script>
 
@@ -1119,6 +1120,15 @@
                             $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                             $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                         });
+                        var params = {};
+                        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                            params[key] = value;
+                        });
+                        if (params["pip"]) {
+                            $('#plumber_select').val(params["pip"]);
+                            $('#plumber_name_select').val(params["pip"]);
+                            $('#plumber_name_select').trigger('change');
+                        }
                     }
                 });
             });
