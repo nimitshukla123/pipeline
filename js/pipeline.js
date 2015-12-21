@@ -131,8 +131,7 @@ function processPlumber(element) {
                     $('#joininputjson').val('');
                     $('#available_inputs').html('<option>Select Input</option>');
                     $('#inputtreebox').css('display', 'block');
-                    $('#chart-box').css('display', 'block');
-                    $('#inputjsonbox').css('display', 'block');
+
                     $('#pipeline-input-tree').empty();
                     $.each(json, function (i, optionHtml) {
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
@@ -958,4 +957,9 @@ function createJoinSql() {
 
     jQuery('#sqlpreview').find('code').html(sqlObjSelect.toString());
 
+}
+
+function addmoreinputs(){
+                        $('#chart-box').toggle();
+                    $('#inputjsonbox').toggle();
 }
