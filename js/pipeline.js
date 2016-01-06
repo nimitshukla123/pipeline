@@ -131,9 +131,6 @@ function processPlumber(element) {
                     $('#available_inputs').html('<option>Select Input</option>');
                     $('#wid-id-visu2').css('display', 'block');
                     $('#inputtreebox').css('display', 'block');
-                    $('#selectsqlpreview').css('display', 'block');
-                    $('#submitsavebtns').css('display', 'block');
-
 
                     $('#pipeline-input-tree').empty();
                     $.each(json, function (i, optionHtml) {
@@ -802,8 +799,8 @@ function  showjoininputboxfinal() {
 
 function joinprogressshow() {
     if ($('#available_inputs').val() != '') {
-        $('#sqlpreview').toggle();
-        $('#wid-id-joinprv').toggle();
+        $('#sqlpreview').css('display','block');
+        $('#wid-id-joinprv').css('display','block');
 
     } else {
         alert('Select Input to JOIN')
@@ -814,6 +811,9 @@ function joinprogressshow() {
 //set selected input
 function fillinput(e) {
     $('#joininputbox').css('display', 'block');
+    $('#selectsqlpreview').css('display', 'block');
+    $('.submitsavebtns').css('display', 'block');
+
 
     $('#firstinputname').val($(e).text());
     $('#joininputjson').val($(e).attr('data-json'));
