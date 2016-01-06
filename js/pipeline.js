@@ -131,6 +131,9 @@ function processPlumber(element) {
                     $('#available_inputs').html('<option>Select Input</option>');
                     $('#wid-id-visu2').css('display', 'block');
                     $('#inputtreebox').css('display', 'block');
+                    $('#selectsqlpreview').css('display', 'block');
+                    $('#submitsavebtns').css('display', 'block');
+
 
                     $('#pipeline-input-tree').empty();
                     $.each(json, function (i, optionHtml) {
@@ -179,8 +182,7 @@ function processPlumber(element) {
                     drawChart(json);
                 }
             });
-        }
-        else {
+        } else {
             $('#wid-id-chart').hide();
         }
     }
@@ -789,7 +791,7 @@ function  showjoininputboxfinal() {
         $('#sqlpreview').hide();
         $('#wid-id-joinprv').hide();
         $('#select-query-build').toggle();
-        jQuery('.sql-data').find('code').html('SQL preview shown here');
+        jQuery('.sql-data').find('#code').val('SQL preview shown here');
         updateJoinInputList();
     } else {
         alert('first Select Input');
@@ -811,7 +813,7 @@ function joinprogressshow() {
 
 //set selected input
 function fillinput(e) {
-          $('#joininputbox').css('display', 'block');
+    $('#joininputbox').css('display', 'block');
 
     $('#firstinputname').val($(e).text());
     $('#joininputjson').val($(e).attr('data-json'));
@@ -851,8 +853,8 @@ function getselectedinputs(e) {
 }
 
 function updateSql(e) {
-    
-          $('#prvbx').css('display', 'block');
+
+    $('#prvbx').css('display', 'block');
 
     var sqlObjSelect = '';
     var tabel = $('#firstinputname').val();
@@ -877,7 +879,7 @@ function updateSql(e) {
         }
 
     });
-    jQuery('.sql-data').find('code').html(sqlObjSelect.toString());
+    jQuery('.sql-data').find('#code').val(sqlObjSelect.toString());
 }
 function resetSql() {
     sqlObjSelect = '';
@@ -960,11 +962,11 @@ function createJoinSql() {
     }
 
 
-    jQuery('#sqlpreview').find('code').html(sqlObjSelect.toString());
+    jQuery('#sqlpreview').find('#code').val(sqlObjSelect.toString());
 
 }
 
-function addmoreinputs(){
-                        $('#chart-box').toggle();
-                    $('#inputjsonbox').toggle();
+function addmoreinputs() {
+    $('#chart-box').toggle();
+    $('#inputjsonbox').toggle();
 }
