@@ -5,9 +5,6 @@
  */
 
 
-function showChild() {
-//    console.log("HERE IN showChild");
-}
 var countArray = [];
 var countJoinArray = [];
 function ProcessOperationChange(element) {
@@ -234,7 +231,6 @@ function processPlumber(element) {
                     //console.log(optionHtml);
                     $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
-                console.log(json[0])
                 // Adding existing json to the html
                 $('#parent_json_value').val(atob(json[0]['data']));
             }
@@ -244,7 +240,6 @@ function processPlumber(element) {
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
         $("#child_payload").show();
         $("#analyze_child_div").show();
-        console.log($('#plumber_select').val())
         $.ajax({
             url: '/plumberPipeline/' + $('#plumber_select').val(),
             type: 'GET',
@@ -256,14 +251,12 @@ function processPlumber(element) {
                     //console.log(optionHtml);
                     $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
-                console.log(json[0])
                 // Adding existing json to the html
                 $('#child_json_value').val(atob(json[0]['data']));
             }
         });
     }
     if (element.name == 'select_all') {
-        console.log("HERE")
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
         ;
         $("#source_group").show();
@@ -280,7 +273,6 @@ function processPlumber(element) {
                     //console.log(optionHtml);
                     $('#select_all').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
-                console.log(json[0])
                 // Adding existing json to the html
                 $('#select_all').val(atob(json[0]['data']));
             }
@@ -543,7 +535,8 @@ $(function () { //shorthand document.ready function
                                     <li><a href="#">Separated link</a></li> \
                                 </ul>';
 //            document.getElementById(operationId).innerHTML = operStr
-            //console.log(htmlStr);
+            //
+            //g(htmlStr);
         } else {
             alert("Invalid JSON");
         }
@@ -762,15 +755,6 @@ function addmoreinputs() {
     $('#jsonload').css('display', 'block');
 }
 
-//function addinputexisting() {
-//    if (!$('#parent_json_value').val()) {
-//        alert('Please Enter JSON Payload')
-//    } else {
-//        $('#dialog_simple').dialog('open');
-//    }
-//    return false;
-//
-//}
 
 function proceedjoin() {
     $('#joininputbox').css('display', 'block');
@@ -799,8 +783,8 @@ function  showjoininputboxfinal() {
 
 function joinprogressshow() {
     if ($('#available_inputs').val() != '') {
-        $('#sqlpreview').css('display','block');
-        $('#wid-id-joinprv').css('display','block');
+        $('#sqlpreview').css('display', 'block');
+        $('#wid-id-joinprv').css('display', 'block');
 
     } else {
         alert('Select Input to JOIN')
@@ -851,9 +835,10 @@ function getselectedinputs(e) {
     }
 
 }
+var finalStageInputs;
 
 function updateSql(e) {
-
+    finalStageInputs = {};
     $('#prvbx').css('display', 'block');
 
     var sqlObjSelect = '';
@@ -863,6 +848,7 @@ function updateSql(e) {
             var fieldname = $('#field_' + val).html();
             var filter = $('#filter_' + val).val();
             var value = $('#value_' + val).val();
+            finalStageInputs[fieldname] = value;
             if (filter !== '') {
                 if (sqlObjSelect !== '') {
                     sqlObjSelect = sqlObjSelect.field(fieldname).where(fieldname + filter + ' "' + value + '"');
@@ -879,13 +865,17 @@ function updateSql(e) {
         }
 
     });
+    jQuery('.sql-data').find('#code').addClass('common-sql-pick');
+    jQuery('#sqlpreview').find('#code').removeClass('common-sql-pick');
     jQuery('.sql-data').find('#code').val(sqlObjSelect.toString());
 }
 function resetSql() {
     sqlObjSelect = '';
 }
 
+
 function createJoinSql() {
+    finalStageInputs = {};
     var sqlObjSelect = '';
     var tabel1 = $('#firstinputname').val();
     var selectedFieldTable1 = 0;
@@ -900,6 +890,7 @@ function createJoinSql() {
             var fieldname = $.trim($('#field_' + val).text());
             var filter = $('#filter_' + val).val();
             var value = $('#value_' + val).val();
+            finalStageInputs[fieldname] = value;
             if (filter !== '') {
                 if (sqlObjSelect !== '') {
                     sqlObjSelect = sqlObjSelect.field(tabel1 + '.' + fieldname).where(tabel1 + '.' + fieldname + filter + ' "' + value + '"');
@@ -922,6 +913,7 @@ function createJoinSql() {
             var fieldname = $.trim($('#parent_radio2_field_' + val).text());
             var filter = $('#parent_radio2_filter_' + val).val();
             var value = $('#parent_radio2_input_' + val).val();
+            finalStageInputs[fieldname] = value;
             if (filter !== '') {
                 if (sqlObjSelect !== '') {
                     sqlObjSelect = sqlObjSelect.field(tabel2 + '.' + fieldname).where(tabel2 + '.' + fieldname + filter + ' "' + value + '"');
@@ -942,8 +934,7 @@ function createJoinSql() {
         alert('Please select fields from inputs!');
     } else {
         if (joinCodition !== '' && joinColumn1 !== '' && joinColumn2 !== '') {
-            var condition = tabel1 + '.' + joinColumn1 + ' = ' + tabel2 + '.' + joinColumn2;
-            console.log(condition);
+            var condition = tabel1 + '.' + joinColumn1 + ' ' + joinCodition + ' ' + tabel2 + '.' + joinColumn2;
             if (sqlObjSelect !== '') {
                 sqlObjSelect = sqlObjSelect
                         .from(tabel1)
@@ -960,8 +951,8 @@ function createJoinSql() {
             alert('Please select join condition!');
         }
     }
-
-
+    jQuery('.sql-data').find('#code').removeClass('common-sql-pick');
+    jQuery('#sqlpreview').find('#code').addClass('common-sql-pick');
     jQuery('#sqlpreview').find('#code').val(sqlObjSelect.toString());
 
 }
@@ -969,4 +960,42 @@ function createJoinSql() {
 function addmoreinputs() {
     $('#chart-box').toggle();
     $('#inputjsonbox').toggle();
+}
+
+function saveStage(obj) {
+    var url = jQuery(obj).attr('data-href');
+    var plumberName = jQuery('#plumber_name_select :selected').text();
+    var stageName = jQuery('#stageinputname').val();
+    if (finalStageInputs) {
+        var data = JSON.parse(JSON.stringify(finalStageInputs));
+    }
+    var sql = jQuery('.common-sql-pick').val();
+    var finalDataObj = {};
+    finalDataObj['plumber'] = plumberName;
+    finalDataObj['data'] = data;
+    finalDataObj['title'] = stageName;
+    finalDataObj['parentModel'] = '';
+    finalDataObj['sqlStmt'] = sql;
+    var fData = JSON.stringify(finalDataObj);
+    if (stageName == '' || plumberName == '' || data == '') {
+        alert('Please fill all required values!');
+        return false;
+    } else {
+        jQuery.ajax({
+            url: url,
+            contentType: "application/json",
+            dataType: "json",
+            data: fData,
+            type: 'POST',
+            success: function (response) {
+                if (response.id != '') {
+                    $('#stage_created').dialog('open');
+                } else {
+                    $('#stage_created').children('p').html('Some error occured!PLease Try Again');
+                    $('#stage_created').dialog('open');
+                }
+            }
+        });
+    }
+
 }
