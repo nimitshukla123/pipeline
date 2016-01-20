@@ -472,7 +472,7 @@
                                             <label for="select-1" class="col-md-2 control-label">Name the Pipeline</label>
                                             <div class="col-md-5">
                                                 <input type="text" class="form-control" placeholder="Pipeline name" id="pipelinename" name="plumber">
-
+                                                <input id="newpipeid" type="hidden" value="0"/>
 
                                             </div>
                                         </div>
@@ -897,7 +897,7 @@
                     html : "Operations",
                             "class" : "btn btn-default",
                             click : function() {
-                            window.location.href = $("#joinurl").attr('href') + '?pip=' + pip;
+                            window.location.href = $("#joinurl").attr('href') + '?pip=' + $("#newpipeid").val();
                             }
                     }, {
                     html : "<i class='fa fa-check'></i>&nbsp; OK",

@@ -709,6 +709,7 @@ function proceednew() {
             data: JSON.stringify({"plumber": $('#pipelinename').val()}),
             success: function (response) {
                 if (response.status == 'succesful') {
+                    $('#newpipeid').val(response['id']);
                     $('#create-pipeline').dialog('open');
                     $('#jsonload').css('display', 'block')
                     $('#overviewbox').css('display', 'block')
