@@ -871,10 +871,10 @@
                     modal : true,
                     title : "Pipeline added Successfully",
                     buttons : [{
-                    html : "Operations",
+                    html : "Cancel",
                             "class" : "btn btn-default",
                             click : function() {
-                                    window.location.href = $("#joinurl").attr('href') + '?pip=' + pip;
+                            $(this).dialog("close");
                             }
                     }, {
                     html : "<i class='fa fa-check'></i>&nbsp; OK",
@@ -894,10 +894,10 @@
                     modal : true,
                     title : "Input Saved Successfully",
                     buttons : [{
-                    html : "Cancel",
+                    html : "Operations",
                             "class" : "btn btn-default",
                             click : function() {
-                            $(this).dialog("close");
+                            window.location.href = $("#joinurl").attr('href') + '?pip=' + pip;
                             }
                     }, {
                     html : "<i class='fa fa-check'></i>&nbsp; OK",
