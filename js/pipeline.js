@@ -737,9 +737,9 @@ function addinputs() {
             dataType: "json",
             data: JSON.stringify({"plumber": $('#pipelinename').val(), "title": $('#inputname').val(), "parentModel": "", "data": JSON.parse($('#parent_json_value').val())}),
             success: function (response) {
-                if (response.status == 'successful') {
+                if (response.status == 'update successful' && response.id) {
                     $('#dialog_simple').dialog('open');
-                } else if (response.status == 'Failed') {
+                } else if (response.id == '') {
                     alert('Unable to save inputs');
                 } else {
                     alert('Unable to save inputs! please try after some time');
