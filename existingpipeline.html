@@ -848,7 +848,16 @@
                             //$('#plumber').append(optionHtml['plumber_select']);                    
                             $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                                     $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-                            });
+         var params = {};
+                                                window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                                                    params[key] = value;
+                                                });
+                                                if (params["pip"]) {
+                                                    $('#plumber_select').val(params["pip"]);
+                                                    $('#plumber_name_select').val(params["pip"]);
+                                                    $('#plumber_name_select').trigger('change');
+                                                }                       
+    });
                             }
                     });
             });</script>

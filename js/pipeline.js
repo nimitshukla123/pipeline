@@ -711,7 +711,7 @@ function proceednew() {
                 if (response.status == 'succesful') {
                     $('#newpipeid').val(response['id']);
                     $('#create-pipeline').dialog('open');
-                    $('#jsonload').css('display', 'block')
+//                    $('#jsonload').css('display', 'block')
                     $('#overviewbox').css('display', 'block')
                     $('#submitbox').css('display', 'block')
                     $('#pipelinenameset').html('<b>' + $('#pipelinename').val() + '</b>');
