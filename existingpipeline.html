@@ -844,11 +844,14 @@
                             type: 'GET',
                             dataType: 'json',
                             success: function (json) {
+                                
                             $.each(json, function (i, optionHtml) {
                             //$('#plumber').append(optionHtml['plumber_select']);                    
                             $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                                     $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
-         var params = {};
+                             
+    });
+       var params = {};
                                                 window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
                                                     params[key] = value;
                                                 });
@@ -856,9 +859,9 @@
                                                     $('#plumber_select').val(params["pip"]);
                                                     $('#plumber_name_select').val(params["pip"]);
                                                     $('#plumber_name_select').trigger('change');
-                                                }                       
-    });
-                            }
+                                                }                     
+    }
+    
                     });
             });</script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
