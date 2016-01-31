@@ -330,10 +330,10 @@
                         <a href="#"><i class="fa fa-lg fa-fw fa-puzzle-piece"></i> <span class="menu-item-parent">Pipeline</span></a>
                         <ul style="display: block">
                             <li class="active">
-                                <a href="newpipeline.html">Create New</a>
+                                <a href="newpipeline.html">Create New Plumber</a>
                             </li>
                             <li>
-                                <a id="joinurl" href="existingpipeline.html">Configure Pipeline</a>
+                                <a id="joinurl" href="existingpipeline.html">Configure Pipeline Input</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o showoperations"></i> <span class="menu-item-parent">Operations</span></a>
@@ -482,7 +482,7 @@
                                             <!-- your contents here -->
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
-                                                    <a style="float: right"  class="btn btn-warning" id="procnwpipe"  onclick="proceednew()"  href="javascript:void(0);">Proceed</a>
+                                                    <a style="float: right"  class="btn btn-warning" id="procnwpipe"  onclick="proceednew()"  href="javascript:void(0);">Create</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -579,7 +579,7 @@
 
 
                             </div>
-                            <div id="create-pipeline" title="add new pipeline">
+                            <div id="create-pipeline" title="">
                                 <p>
                                     Plumber created successfully.
                                 </p>
@@ -881,8 +881,8 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                                    $('#pipelinename').prop('disabled', 'disabled')
-                                    $('#procnwpipe').prop('disabled', 'disabled')
+//                                    $('#pipelinename').prop('disabled', 'disabled')
+//                                    $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
                                     $('#analyze_parent').html('<code>*input JSON Payload</code>');
@@ -892,9 +892,9 @@
                     $('#create-pipeline').dialog({
             autoOpen : false,
                     modal : true,
-                    title : "Input Saved Successfully",
+                    title : "",
                     buttons : [{
-                    html : "Operations",
+                    html : "Configure Pipeline",
                             "class" : "btn btn-default",
                             click : function() {
                             window.location.href = $("#joinurl").attr('href') + '?pip=' + $("#newpipeid").val();
@@ -904,8 +904,9 @@
                             "class" : "btn btn-primary",
                             click : function() {
                             $(this).dialog("close");
-                                    $('#pipelinename').prop('disabled', 'disabled')
-                                    $('#procnwpipe').prop('disabled', 'disabled')
+//                                    $('#pipelinename').prop('disabled', 'disabled')
+                                    $('#pipelinename').val('');
+//                                    $('#procnwpipe').prop('disabled', 'disabled')
                                     $('#inputname').val('')
                                     $('#parent_json_value').val('')
                                     $('#analyze_parent').html('<code>*input JSON Payload</code>');

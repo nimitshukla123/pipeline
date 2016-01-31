@@ -22,10 +22,10 @@ function ProcessOperationChange(element) {
                 url: '/plumberPipeline/' + $('#plumber_select').val(),
                 type: 'GET',
                 dataType: 'json',
-                success: function (json) {
+                success: function(json) {
                     $('#child_title_select').empty();
                     $('#child_title_select').append('<option> </option>');
-                    $.each(json, function (i, optionHtml) {
+                    $.each(json, function(i, optionHtml) {
                         //console.log(optionHtml);
                         $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                     });
@@ -55,6 +55,7 @@ function drawChart(json) {
         payload.push(eachParentChild);
     }
 //    console.log(payload);
+if(document.getElementById('chart_div')){
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Child');
     data.addColumn('string', 'Parent');
@@ -62,7 +63,7 @@ function drawChart(json) {
     data.addRows(payload)
     var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
     chart.draw(data, {allowHtml: true});
-}
+}}
 
 function IsJsonString(str) {
     try {
@@ -93,11 +94,11 @@ function showChildDiv() {
         url: '/plumberPipeline/',
         type: 'GET',
         dataType: 'json',
-        success: function (json) {
+        success: function(json) {
             //console.log(element.name);
             $('#select_all').empty();
             $('#select_all').append('<option> </option>');
-            $.each(json, function (i, optionHtml) {
+            $.each(json, function(i, optionHtml) {
                 $('#select_all').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
             });
         }
@@ -105,8 +106,12 @@ function showChildDiv() {
 }
 function processPlumber(element) {
 
+    if ($('.selectpipbox').hasClass('col-lg-12')) {
+        $('.selectpipbox').removeClass('col-lg-12')
+        $('.selectpipbox').addClass('col-lg-6')
+    }
     $('#select-pipeline-chart').hide();
-    $('#submitbox').css('display', 'block');
+    $('#submitbox').css('display', 'none');
     if (element.name == 'plumber_name_select') {
 //        $('#joininputbox').css('display', 'block');
         $('#analyze_parent').html();
@@ -121,20 +126,34 @@ function processPlumber(element) {
                 url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
                 type: 'GET',
                 dataType: 'json',
-                success: function (json) {
+                success: function(json) {
                     $('#analyze_parent').html();
                     $('#firstinputname').val('');
                     $('#joininputjson').val('');
                     $('#available_inputs').html('<option>Select Input</option>');
                     $('#wid-id-visu2').css('display', 'block');
                     $('#inputtreebox').css('display', 'block');
+                    $('#inputjsonbox').css('display', 'none');
+                    $('#chart-box').css('display', 'none');
 
                     $('#pipeline-input-tree').empty();
-                    $.each(json, function (i, optionHtml) {
+                    if (json != '') {
+                            console.log(json)
+                        $.each(json, function(i, optionHtml) {
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+                            $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
+                            $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
+                        });
+
+                        $('#chart-box').addClass("datayes");
+                        $('#chart-box').removeClass("datano");
+
+                    } else {
+                        $('#chart-box').addClass("datano");
+                        $('#chart-box').removeClass("datayes");
+
                         $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
-                        $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
-                    });
+                    }
                     if ($('#pipeline-input-tree').hasClass('joinpage')) {
                     } else {
                         $('#pipeline-input-tree').append("<li><span class='addmoreinput'><i class='icon-leaf'></i>Add <a onclick='addmoreinputs();' href='javascript:void(0);' class='btn btn-default btn-circle'><i class='fa fa-plus'</i></a></span></li>");
@@ -146,7 +165,7 @@ function processPlumber(element) {
                 url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
                 type: 'GET',
                 dataType: 'json',
-                success: function (json) {
+                success: function(json) {
 
                     drawChart(json);
                 }
@@ -171,7 +190,7 @@ function processPlumber(element) {
                 url: 'http://spark.noip.me:180/plumber/v0/listModelMapsWithPlumberId?plumberId=' + element.value,
                 type: 'GET',
                 dataType: 'json',
-                success: function (json) {
+                success: function(json) {
                     $('#wid-id-chart').show();
                     drawChart(json);
                 }
@@ -190,8 +209,8 @@ function processPlumber(element) {
             url: '/plumberPipelineView/' + element.value,
             type: 'GET',
             dataType: 'json',
-            success: function (json) {
-                $.each(json, function (i, optionHtml) {
+            success: function(json) {
+                $.each(json, function(i, optionHtml) {
                     //console.log(optionHtml)
                     //$('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
@@ -202,12 +221,12 @@ function processPlumber(element) {
             url: '/plumberPipeline/' + element.value,
             type: 'GET',
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 //console.log(element.name);
                 $('#stage_title_select').empty();
                 $('#stage_title_select').append('<option> </option>');
                 $('#child_title_select').empty();
-                $.each(json, function (i, optionHtml) {
+                $.each(json, function(i, optionHtml) {
                     $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
             }
@@ -224,10 +243,10 @@ function processPlumber(element) {
             //url:'/plumberPipeline/' + $('#plumber_select').val(),
             type: 'GET',
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 $('#child_title_select').empty();
                 $('#child_title_select').append('<option> </option>');
-                $.each(json, function (i, optionHtml) {
+                $.each(json, function(i, optionHtml) {
                     //console.log(optionHtml);
                     $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
@@ -244,10 +263,10 @@ function processPlumber(element) {
             url: '/plumberPipeline/' + $('#plumber_select').val(),
             type: 'GET',
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 $('#child_title_select').empty();
                 $('#child_title_select').append('<option> </option>');
-                $.each(json, function (i, optionHtml) {
+                $.each(json, function(i, optionHtml) {
                     //console.log(optionHtml);
                     $('#child_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
@@ -266,10 +285,10 @@ function processPlumber(element) {
             url: '/plumberPipeline/',
             type: 'GET',
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 $('#select_all').empty();
                 $('#select_all').append('<option> </option>');
-                $.each(json, function (i, optionHtml) {
+                $.each(json, function(i, optionHtml) {
                     //console.log(optionHtml);
                     $('#select_all').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
                 });
@@ -331,8 +350,8 @@ function recursiveGetProperty(obj, prop, callback) {
     }
 }
 // This function allows us to add a new json
-$(function () { //shorthand document.ready function
-    $('#parent_json_value,#child_json_value').on('change', function (e) { //use on if jQuery 1.7+
+$(function() { //shorthand document.ready function
+    $('#parent_json_value,#child_json_value').on('change', function(e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
 //        console.log("Analyze id " + e.target.id);
@@ -376,7 +395,7 @@ $(function () { //shorthand document.ready function
 //console.log(data[0].value); //use the console for debugging, F12 in Chrome, not alerts
 //var $records = $('#json-records'),
             myRecords = JSON.parse(data[0].value);
-            recursiveGetProperty(myRecords, "", function (obj) {
+            recursiveGetProperty(myRecords, "", function(obj) {
                 // do something with it.
                 for (var attrname in obj) {
                     kv[attrname] = obj[attrname];
@@ -385,7 +404,7 @@ $(function () { //shorthand document.ready function
             });
 //            console.log(kv);
             var count = 0;
-            $.each(kv, function (i, key) {
+            $.each(kv, function(i, key) {
                 htmlStr = htmlStr + "<tr> \
                 <td> " + i + " </td>\
                 <input type ='hidden' name=" + i + " value=" + key + " />\
@@ -405,12 +424,12 @@ $(function () { //shorthand document.ready function
                                     <li><a href="#">Separated link</a></li> \
                                 </ul>';
             document.getElementById(operationId).innerHTML = operStr
-            //console.log(htmlStr);
+
         } else {
             alert("Invalid JSON");
         }
     });
-    $('#StreamProcessor').on('change', function () {
+    $('#StreamProcessor').on('change', function() {
         if (this.value == "Storm") {
             $("#storm").show();
             $("#samza").hide();
@@ -422,7 +441,7 @@ $(function () { //shorthand document.ready function
             $("#samza").hide();
         }
     });
-    $('#joininputjson').on('change', function (e) { //use on if jQuery 1.7+
+    $('#joininputjson').on('change', function(e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
 //        console.log("Analyze id " + e.target.id);
@@ -488,7 +507,7 @@ $(function () { //shorthand document.ready function
 //console.log(data[0].value); //use the console for debugging, F12 in Chrome, not alerts
 //var $records = $('#json-records'),
             myRecords = JSON.parse(data[0].value);
-            recursiveGetProperty(myRecords, "", function (obj) {
+            recursiveGetProperty(myRecords, "", function(obj) {
                 // do something with it.
                 for (var attrname in obj) {
                     kv[attrname] = obj[attrname];
@@ -500,21 +519,21 @@ $(function () { //shorthand document.ready function
             if ($('#joininputjson').hasClass('filterbox')) {
                 $('#firstinputcolumns').empty();
                 $('#firstinputcolumns').append('<option value="">Select Field</option>');
-                $.each(kv, function (i, key) {
+                $.each(kv, function(i, key) {
                     $('#firstinputcolumns').append('<option value=' + i + '>' + i + '</option>');
                     htmlStr = htmlStr + "<tr> \
-                            <td><input id =" + radioParent + count + " onclick='resetSql()' data-attr=" + count + " type='checkbox' name=" + radioParent + count + ">\
-                <td id='field_" + count + "'> " + i + " </td>\
-                            <td>String</td>\
-                            <td><select id='filter_" + count + "' class='form-control' name=" + radioParent + count + ">\
-<option value=''>Select Opertation</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
-                <td> <input class='form-control' id=value_" + count + " type='text' value='" + key + "'/></td>\
+                            <td style=width:50px><input id =" + radioParent + count + " onclick='resetSql()' data-attr=" + count + " type='checkbox' name=" + radioParent + count + ">\
+                <td style=width:200px id='field_" + count + "'> " + i + " </td>\
+                            <td style=width:50px>String</td>\
+                            <td style=width:50px><select id='filter_" + count + "' class='form-control' name=" + radioParent + count + ">\
+<option value=''>Select</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
+                <td style=width:150px> <input class='form-control' id=value_" + count + " type='text' value='" + key + "'/></td>\
                 </tr>"
                     countArray.push(count);
                     count++;
                 });
             } else {
-                $.each(kv, function (i, key) {
+                $.each(kv, function(i, key) {
                     htmlStr = htmlStr + "<tr> \
                             <td><input type='checkbox' name=" + radioParent + count + "/>\
                 <td> " + i + " </td>\
@@ -541,7 +560,7 @@ $(function () { //shorthand document.ready function
             alert("Invalid JSON");
         }
     });
-    $('#joininputjson2').on('change', function (e) { //use on if jQuery 1.7+
+    $('#joininputjson2').on('change', function(e) { //use on if jQuery 1.7+
 //console.log("Element clicked " );
 //console.log(e.target.id);
 //        console.log("Analyze id " + e.target.id);
@@ -610,7 +629,7 @@ $(function () { //shorthand document.ready function
 //console.log(data[0].value); //use the console for debugging, F12 in Chrome, not alerts
 //var $records = $('#json-records'),
             myRecords = JSON.parse(data[0].value);
-            recursiveGetProperty(myRecords, "", function (obj) {
+            recursiveGetProperty(myRecords, "", function(obj) {
                 // do something with it.
                 for (var attrname in obj) {
                     kv[attrname] = obj[attrname];
@@ -622,21 +641,21 @@ $(function () { //shorthand document.ready function
             if ($('#joininputjson2').hasClass('filterbox')) {
                 $('#secondinputcolumns').empty();
                 $('#secondinputcolumns').append('<option value="">Select Field</option>');
-                $.each(kv, function (i, key) {
+                $.each(kv, function(i, key) {
                     $('#secondinputcolumns').append('<option value=' + i + '>' + i + '</option>');
                     htmlStr = htmlStr + "<tr> \
-                            <td><input id=" + radioParent2 + count + " type='checkbox' name=" + radioParent2 + count + "/>\
-                <td id=" + radioParent2 + 'field_' + count + "> " + i + " </td>\
-                            <td>String</td>\
-                            <td><select id=" + radioParent2 + 'filter_' + count + " class='form-control' name=" + radioParent2 + count + ">\
-<option value=''>Select Opertation</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
-                <td> <input class='form-control' id=" + radioParent2 + 'input_' + count + " type='text' value='" + key + "'/></td>\
+                            <td style=width:50px><input id=" + radioParent2 + count + " type='checkbox' name=" + radioParent2 + count + "/>\
+                <td style=width:200px id=" + radioParent2 + 'field_' + count + "> " + i + " </td>\
+                            <td style=width:50px>String</td>\
+                            <td style=width:50px><select id=" + radioParent2 + 'filter_' + count + " class='form-control' name=" + radioParent2 + count + ">\
+<option value=''>Select</option><option value='='>Equal</option><option value='<'>Less Than</option><option value='LIKE'>Like</option><option value='!='>Not equal</option><option value='>'>greater</option></select></td>\
+                <td style=width:150px> <input class='form-control' id=" + radioParent2 + 'input_' + count + " type='text' value='" + key + "'/></td>\
                 </tr>"
                     countJoinArray.push(count);
                     count++;
                 });
             } else {
-                $.each(kv, function (i, key) {
+                $.each(kv, function(i, key) {
                     htmlStr = htmlStr + "<tr> \
                             <td><input type='checkbox' name=" + radioParent + count + "/>\
                 <td> " + i + " </td>\
@@ -663,7 +682,7 @@ $(function () { //shorthand document.ready function
         }
     });
 
-    $('#StreamProcessor').on('change', function () {
+    $('#StreamProcessor').on('change', function() {
         if (this.value == "Storm") {
             $("#storm").show();
             $("#samza").hide();
@@ -698,8 +717,8 @@ function proceednew() {
 
         alert('Please Enter Pipeline Name');
     } else {
-        $('#procnwpipe').css('display', 'none')
-        $('#submitbtnbox').css('display', 'block')
+//        $('#procnwpipe').css('display', 'none')
+//        $('#submitbtnbox').css('display', 'block')
 
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
@@ -707,14 +726,14 @@ function proceednew() {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify({"plumber": $('#pipelinename').val()}),
-            success: function (response) {
+            success: function(response) {
                 if (response.status == 'succesful') {
                     $('#newpipeid').val(response['id']);
                     $('#create-pipeline').dialog('open');
 //                    $('#jsonload').css('display', 'block')
-                    $('#overviewbox').css('display', 'block')
-                    $('#submitbox').css('display', 'block')
-                    $('#pipelinenameset').html('<b>' + $('#pipelinename').val() + '</b>');
+//                    $('#overviewbox').css('display', 'block')
+//                    $('#submitbox').css('display', 'block')
+//                    $('#pipelinenameset').html('<b>' + $('#pipelinename').val() + '</b>');
                 } else if (response.status == 'Failed') {
                     alert('Unable to create the plumber');
                 } else {
@@ -737,7 +756,7 @@ function addinputs() {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify({"plumber": $('#pipelinename').val(), "title": $('#inputname').val(), "parentModel": "", "data": JSON.parse($('#parent_json_value').val())}),
-            success: function (response) {
+            success: function(response) {
                 if (response.status == 'update successful' && response.id) {
                     $('#dialog_simple').dialog('open');
                 } else if (response.id == '') {
@@ -817,7 +836,7 @@ function fillinput(e) {
 
 function updateJoinInputList() {
     var options = '<option value="">Select Input</input>';
-    $('.inactiveinput').each(function () {
+    $('.inactiveinput').each(function() {
         options += '<option value=' + $(this).attr('data-json') + '>' + $(this).text() + '</option>';
     });
     $('#joininputjson2').val('');
@@ -844,7 +863,7 @@ function updateSql(e) {
 
     var sqlObjSelect = '';
     var tabel = $('#firstinputname').val();
-    jQuery.each(countArray, function (i, val) {
+    jQuery.each(countArray, function(i, val) {
         if (jQuery('#parent_radio_' + val).prop('checked')) {
             var fieldname = $('#field_' + val).html();
             var filter = $('#filter_' + val).val();
@@ -885,7 +904,7 @@ function createJoinSql() {
     var joinColumn1 = $('#firstinputcolumns').val();
     var joinCodition = $('#conditionsselect').val();
     var joinColumn2 = $('#secondinputcolumns').val();
-    jQuery.each(countArray, function (i, val) {
+    jQuery.each(countArray, function(i, val) {
         if (jQuery('#parent_radio_' + val).prop('checked')) {
             selectedFieldTable1 = 1;
             var fieldname = $.trim($('#field_' + val).text());
@@ -908,7 +927,7 @@ function createJoinSql() {
         }
 
     });
-    jQuery.each(countJoinArray, function (i, val) {
+    jQuery.each(countJoinArray, function(i, val) {
         if (jQuery('#parent_radio2_' + val).prop('checked')) {
             selectedFieldTable2 = 1;
             var fieldname = $.trim($('#parent_radio2_field_' + val).text());
@@ -959,8 +978,12 @@ function createJoinSql() {
 }
 
 function addmoreinputs() {
-    $('#chart-box').toggle();
-    $('#inputjsonbox').toggle();
+    $('#submitboxjson').toggle();
+
+    if ($('#chart-box').hasClass("datayes")) {
+        $('#chart-box').toggle();
+    }
+    $('#inputjsonbox').toggle()();
 }
 
 function saveStage(obj) {
@@ -988,7 +1011,7 @@ function saveStage(obj) {
             dataType: "json",
             data: fData,
             type: 'POST',
-            success: function (response) {
+            success: function(response) {
                 if (response.id != '') {
                     $('#stage_created').dialog('open');
                 } else {
@@ -999,4 +1022,7 @@ function saveStage(obj) {
         });
     }
 
+}
+
+function createstage() {
 }
