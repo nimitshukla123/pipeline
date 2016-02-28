@@ -56,6 +56,12 @@
         <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
         <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}">
         </script>
+        <style type="text/css">
+            .stageclass{
+                background-color: pink;
+            }
+        </style>
+
 
     </head>
 
@@ -481,11 +487,11 @@
                                             </div>
 
                                         </div>
-                                        <div class="form-group">
-                                                <div class="col-sm-offset-0 col-sm-10">
-                                                    <a style="float: left"  class="btn btn-warning" id="procnwpipe"  onclick="createstage()"  href="javascript:void(0);">Create Stage</a>
-                                                </div>
-                                            </div>
+                                        <!--                                        <div class="form-group">
+                                                                                        <div class="col-sm-offset-0 col-sm-10">
+                                                                                            <a style="float: left"  class="btn btn-warning" id="procnwpipe"  onclick="createstage()"  href="javascript:void(0);">Create Stage</a>
+                                                                                        </div>
+                                                                                    </div>-->
 
                                         <!-- end widget content -->
 
@@ -551,7 +557,8 @@
                                                             </ul>
                                                         </li>
                                                     </ul>
-                                                    <code>select a input to perform operations</code>
+                                                    <code> Pink = Stage , White = Input</br>
+                                                    </code>
                                                 </div>
 
                                             </div></div>
@@ -757,7 +764,7 @@
                                  >
 
                                 <header>
-                                    <h2>Configure Inputs</h2>
+                                    <h2>Edit Stage</h2>
                                 </header>
 
                                 <!-- widget div-->
@@ -773,9 +780,14 @@
                                             <div class="col-md-4">
                                                 <input type="text" class="form-control" placeholder="Stage Name" id="stageinputname" name="stageinputname"  value="">
                                             </div>
+
                                             <label for="firstinputname" class="col-md-3 control-label" style="padding-bottom: 10px;clear: left">Input Name</label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" placeholder="Input Name" id="firstinputname" name="firstinputname" disabled="disabled" value="">
+                                                <select class="form-control" id="firstinputname" name="available_inputs1" onchange="getselectedinputs(this,1)">
+                                                    <option value="">Select Inputs</option>
+                                                </select>
+                                                <input type="text" disabled="" class="form-control" placeholder="Stage Name" id="firstinputnametext" name="stageinputname"  value="">
+
                                             </div>
                                             <a style="float: right;margin-right: 10px" onclick="showjoininputboxfinal()" id="addjoinbtn" href="javascript:void(0);" class="btn btn-warning">JOIN</a>
                                         </div> 
@@ -837,7 +849,7 @@
                                         <div class="row">
                                             <label for="available_inputs" class="col-md-3 control-label ">Inputs</label>
                                             <div class="col-md-4">
-                                                <select class="form-control" id="available_inputs" name="available_inputs" onchange="getselectedinputs(this)">
+                                                <select class="form-control" id="available_inputs2" name="available_inputs2" onchange="getselectedinputs(this,2)">
                                                     <option value="">Select Inputs</option>
                                                 </select>
                                             </div>
@@ -1024,7 +1036,7 @@
 
         <script type="text/javascript">
 
-                                    $(document).ready(function () {
+                                    $(document).ready(function() {
 
                                         $('#stage_created').dialog({
                                             autoOpen: false,
@@ -1033,7 +1045,7 @@
                                             buttons: [{
                                                     html: "<i class='fa fa-check'></i>&nbsp; OK",
                                                     "class": "btn btn-primary",
-                                                    click: function () {
+                                                    click: function() {
                                                         $(this).dialog("close");
                                                         window.location.reload();
                                                     }
@@ -1042,7 +1054,7 @@
                                         pageSetUp();
                                         $('#joininputjson').val('');
                                         $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
-                                        $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function (e) {
+                                        $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
                                             var children = $(this).parent('li.parent_li').find(' > ul > li');
                                             if (children.is(':visible')) {
                                                 children.hide('fast');
@@ -1056,14 +1068,14 @@
                                             url: 'http://spark.noip.me:180/plumber/v1/listPlumbers',
                                             type: 'GET',
                                             dataType: 'json',
-                                            success: function (json) {
-                                                $.each(json, function (i, optionHtml) {
+                                            success: function(json) {
+                                                $.each(json, function(i, optionHtml) {
                                                     //$('#plumber').append(optionHtml['plumber_select']);                    
                                                     $('#plumber_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                                                     $('#plumber_name_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['plumber'] + '</option>');
                                                 });
                                                 var params = {};
-                                                window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                                                window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
                                                     params[key] = value;
                                                 });
                                                 if (params["pip"]) {

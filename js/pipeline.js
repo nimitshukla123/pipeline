@@ -55,15 +55,16 @@ function drawChart(json) {
         payload.push(eachParentChild);
     }
 //    console.log(payload);
-if(document.getElementById('chart_div')){
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Child');
-    data.addColumn('string', 'Parent');
-    data.addColumn('string', 'ToolTip');
-    data.addRows(payload)
-    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-    chart.draw(data, {allowHtml: true});
-}}
+    if (document.getElementById('chart_div')) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Child');
+        data.addColumn('string', 'Parent');
+        data.addColumn('string', 'ToolTip');
+        data.addRows(payload)
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml: true});
+    }
+}
 
 function IsJsonString(str) {
     try {
@@ -118,12 +119,13 @@ function processPlumber(element) {
         $('#firstinputname').val('');
         $('#joininputjson').val('');
         $('#available_inputs').html('<option>Select Input</option>');
+        $('#firstinputname').html('<option>Select Input</option>');
         $('#pipeline-input-tree').empty();
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
         if (element.value !== '') {
             $.ajax({
-                url: 'http://spark.noip.me:180/plumber/v0/listModelsWithPlumberId?plumberId=' + element.value,
+                url: 'http://spark.noip.me:180/plumber/v1/listModelsWithPlumberId?plumberId=' + element.value,
                 type: 'GET',
                 dataType: 'json',
                 success: function(json) {
@@ -131,18 +133,25 @@ function processPlumber(element) {
                     $('#firstinputname').val('');
                     $('#joininputjson').val('');
                     $('#available_inputs').html('<option>Select Input</option>');
+                    $('#firstinputname').html('<option>Select Input</option>');
                     $('#wid-id-visu2').css('display', 'block');
                     $('#inputtreebox').css('display', 'block');
                     $('#inputjsonbox').css('display', 'none');
                     $('#chart-box').css('display', 'none');
-
                     $('#pipeline-input-tree').empty();
                     if (json != '') {
-                            console.log(json)
+                        console.log(JSON.stringify(json));
                         $.each(json, function(i, optionHtml) {
+                            //optionHtml = {"id": 34, "stage_title": "nimitinput1", "parent": "", "data": {"X": "Y"}, "plumber": {"id": 28, "plumber": "Nimit"}};
 //                    $('#stage_title_select').append('<option value=' + optionHtml['id'] + '>' + optionHtml['stage_title'] + '</option>');
+
                             $('#existingPipeline-name').html('<i class="fa fa-lg fa-folder-open"></i>' + element.options[element.selectedIndex].innerHTML);
-                            $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' onclick=fillinput(this)><i class='icon-leaf'></i>" + optionHtml['stage_title'] + "</span></li>");
+                            if (optionHtml['sqlStmt'] && optionHtml['sqlStmt'] != 'null') {
+                                $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis stageclass' data-json='" + JSON.stringify(optionHtml['data']) + "' data-sqlstmt='" + JSON.stringify(optionHtml['sqlStmt']) + "' data-parent='' onclick=fillinput(this,1)><i class='icon-leaf'></i>" + optionHtml['title'] + "</span></li>");
+                            } else {
+                                $('#pipeline-input-tree').append("<li style='cursor:pointer'><span class='inputlis' data-json='" + JSON.stringify(optionHtml['data']) + "' data-parent='' onclick=fillinput(this,0)><i class='icon-leaf'></i>" + optionHtml['title'] + "</span></li>");
+                            }
+
                         });
 
                         $('#chart-box').addClass("datayes");
@@ -182,6 +191,7 @@ function processPlumber(element) {
         $('#firstinputname').val('');
         $('#joininputjson').val('');
         $('#available_inputs').html('<option>Select Input</option>');
+        $('#firstinputname').html('<option>Select Input</option>');
         $('#pipeline-input-tree').empty();
         $('#pipelinename').val(element.options[element.selectedIndex].innerHTML);
         element.nextElementSibling.value = element.options[element.selectedIndex].innerHTML;
@@ -793,7 +803,7 @@ function  showjoininputboxfinal() {
         $('#wid-id-joinprv').hide();
         $('#select-query-build').toggle();
         jQuery('.sql-data').find('#code').val('SQL preview shown here');
-        updateJoinInputList();
+        updateJoinInputList(1);
     } else {
         alert('first Select Input');
     }
@@ -813,16 +823,30 @@ function joinprogressshow() {
 }
 
 //set selected input
-function fillinput(e) {
+function fillinput(e, isinput) {
+//    alert(isinput)
     $('#joininputbox').css('display', 'block');
     $('#selectsqlpreview').css('display', 'block');
+    if ($(e).attr('data-sqlstmt')) {
+        $('#code').val($(e).attr('data-sqlstmt'));
+        $('#firstinputnametext').css('display', 'none')
+        $('#firstinputname').css('display', 'block')
+
+        $('#stageinputname').val($(e).text());
+    } else {
+        $('#stageinputname').val('');
+        $('#code').val('');
+        $('#firstinputnametext').val($(e).text());
+        $('#firstinputnametext').css('display', 'block')
+        $('#firstinputname').css('display', 'none')
+    }
+
     $('.submitsavebtns').css('display', 'block');
-
-
-    $('#firstinputname').val($(e).text());
+    // $('#firstinputname').val($(e).text());
     $('#joininputjson').val($(e).attr('data-json'));
     $('#joininputjson').trigger('change');
     $('.inputlis').css('background', 'white');
+    $('.stageclass').css('background', 'pink');
     $('.inputlis').removeClass('activeinput').addClass('inactiveinput');
     $(e).css('background', 'greenyellow');
     $(e).addClass('activeinput').removeClass('inactiveinput');
@@ -834,26 +858,44 @@ function fillinput(e) {
 
 }
 
-function updateJoinInputList() {
+function updateJoinInputList(e) {
     var options = '<option value="">Select Input</input>';
     $('.inactiveinput').each(function() {
         options += '<option value=' + $(this).attr('data-json') + '>' + $(this).text() + '</option>';
     });
     $('#joininputjson2').val('');
     $('#analyze_parent2').html('');
-    $('#available_inputs').html(options);
+    $('#available_inputs2').html(options);
+    if (e != 1) {
+        $('#firstinputname').html(options);
+    }
 }
 
-function getselectedinputs(e) {
-    if ($(e).val() != '') {
+function getselectedinputs(e, type) {
+    if (type == 1) {
+        if ($(e).val() != '') {
 
-        $('#joininputjson2').val($(e).val());
-        $('#joininputjson2').trigger('change');
+            $('#joininputjson').val($(e).val());
+            $('#joininputjson').trigger('change');
+        } else {
+            $('#analyze_parent').html('');
+            $('#joininputjson').val('');
+        }
     } else {
-        $('#analyze_parent2').html('');
-        $('#joininputjson2').val('');
+        if ($(e).val() != '') {
+            if ($(e).val() == $('#firstinputname').val()) {
+                alert('Join cannot be applied on same inputs');
+                $('#available_inputs2').val($(e).val(''));
+                $('#analyze_parent2').html('');
+            } else {
+                $('#joininputjson2').val($(e).val());
+                $('#joininputjson2').trigger('change');
+            }
+        } else {
+            $('#analyze_parent2').html('');
+            $('#joininputjson2').val('');
+        }
     }
-
 }
 var finalStageInputs;
 
