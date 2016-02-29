@@ -783,7 +783,7 @@
 
                                             <label for="firstinputname" class="col-md-3 control-label" style="padding-bottom: 10px;clear: left">Input Name</label>
                                             <div class="col-md-4">
-                                                <select class="form-control" id="firstinputname" name="available_inputs1" onchange="getselectedinputs(this,1)">
+                                                <select class="form-control" id="firstinputname" name="available_inputs1" onchange="getselectedinputs(this, 1)">
                                                     <option value="">Select Inputs</option>
                                                 </select>
                                                 <input type="text" disabled="" class="form-control" placeholder="Stage Name" id="firstinputnametext" name="stageinputname"  value="">
@@ -849,7 +849,7 @@
                                         <div class="row">
                                             <label for="available_inputs" class="col-md-3 control-label ">Inputs</label>
                                             <div class="col-md-4">
-                                                <select class="form-control" id="available_inputs2" name="available_inputs2" onchange="getselectedinputs(this,2)">
+                                                <select class="form-control" id="available_inputs2" name="available_inputs2" onchange="getselectedinputs(this, 2)">
                                                     <option value="">Select Inputs</option>
                                                 </select>
                                             </div>
@@ -880,6 +880,39 @@
 
                         </article>
 
+                        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                            <div class="jarviswidget jarviswidget-color-magenta" id="event-box" 
+                                 data-widget-colorbutton="false"	
+                                 data-widget-editbutton="false"
+                                 data-widget-togglebutton="false"
+                                 data-widget-deletebutton="false"
+                                 data-widget-fullscreenbutton="false"
+                                 data-widget-custombutton="false"
+                                 data-widget-collapsed="false" 
+                                 data-widget-sortable="false"
+                                 style="display: none"
+                                 >
+                                <header>
+                                    <h2>Sample Events</h2>
+                                </header>
+
+                                <!-- widget div-->
+                                <div>
+
+                                    <!-- widget edit box -->
+                                    <div class="jarviswidget-editbox">
+                                        <!-- This area used as dropdown edit box -->
+                                        <input class="form-control" type="text">	
+                                    </div>
+                                    <!-- end widget edit box -->
+
+                                    <!-- widget content -->
+                                    <div class="widget-body  form-horizontal">
+                                        <div id="stageeventshowdata">
+                                        </div></div></div>
+
+                            </div>
+                        </article>
                         <article class="col-xs-12 col-sm-6 col-md-6 col-lg-12"><div class="col-md-7 submitsavebtns"  style="display: none" ><a style="float: right;margin-right: 40px" onclick="saveStage(this);" data-href="http://spark.noip.me:180/plumber/v1/createModel" href="javascript:void(0);" class="btn btn-warning">Submit</a>
                                 <a style="float: right;margin-right: 40px" onclick="saveStage(this);"  data-href="http://spark.noip.me:180/plumber/v1/saveNsubmit" href="javascript:void(0);" class="btn btn-success">Save and Submit</a>
 

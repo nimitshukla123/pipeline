@@ -812,7 +812,7 @@ function  showjoininputboxfinal() {
 }
 
 function joinprogressshow() {
-    if ($('#available_inputs').val() != '') {
+    if ($('#available_inputs2').val() != '') {
         $('#sqlpreview').css('display', 'block');
         $('#wid-id-joinprv').css('display', 'block');
 
@@ -831,9 +831,23 @@ function fillinput(e, isinput) {
         $('#code').val($(e).attr('data-sqlstmt'));
         $('#firstinputnametext').css('display', 'none')
         $('#firstinputname').css('display', 'block')
+        $('#event-box').css('display', 'block')
 
         $('#stageinputname').val($(e).text());
+          $.ajax({
+                url: "http://spark.noip.me:180/plumber/v1/getSampleEvents",
+                type: 'GET',
+                dataType: 'json',
+                data:{stageTitle:$(e).text()},
+                success: function(json) {
+                     $('#stageeventshowdata').html(json)
+                }
+            });
+        
+        
     } else {
+                $('#event-box').css('display', 'none')
+
         $('#stageinputname').val('');
         $('#code').val('');
         $('#firstinputnametext').val($(e).text());
