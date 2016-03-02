@@ -873,9 +873,9 @@ function fillinput(e, isinput) {
 }
 
 function updateJoinInputList(e) {
-    var options = '<option value="">Select Input</input>';
+    var options = "<option value=''>Select Input</input>";
     $('.inactiveinput').each(function() {
-        options += '<option value=' + $(this).attr('data-json') + '>' + $(this).text() + '</option>';
+        options += "<option value='"+$(this).attr('data-json')+"'>"+$(this).text()+"</option>";
     });
     $('#joininputjson2').val('');
     $('#analyze_parent2').html('');
