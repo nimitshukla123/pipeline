@@ -580,8 +580,19 @@
                                             </div>
                                             <div class="form-group" id="submitbox2" style="display: block">
                                             <div class="col-sm-5">
-                                                <a style="float: right" class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit </a>
+                                                <a id="sbmtinpt" style="float: right;display: none" class="btn btn-labeled btn-success" onclick="addinputs()"href="javascript:void(0);"> <span class="btn-label submitbtn"><i class="glyphicon glyphicon-ok"></i></span><span class="sbmtbtntxt">Submit</span> </a>
+                                                <a id="prcsinpt"style="float: right" class="btn btn-labeled btn-warning" onclick="showtabledata()" href="javascript:void(0);"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Process</a>
                                             </div>
+                                                <script type="text/javascript">
+                                                    function showtabledata(){
+                                                        if($('#parent_json_value').val()){
+                                                        $('#prcsinpt').css("display","none");
+                                                        $('#sbmtinpt').css("display","block");
+                                                        $('#parent_json_value').trigger('blur');}else{
+                                                        alert('Enter JSON Payload')
+                                                        }
+                                                    }
+                                                </script>
                                         </div>
                                             
                                         </div> 

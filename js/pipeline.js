@@ -728,7 +728,8 @@ function proceednew() {
         alert('Please Enter Pipeline Name');
     } else {
 //        $('#procnwpipe').css('display', 'none')
-//        $('#submitbtnbox').css('display', 'block')
+        $('#procnwpipe').css('display', 'none')
+        $('#savingprocnwpipe').css('display', 'block')
 
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createPlumber',
@@ -737,6 +738,9 @@ function proceednew() {
             dataType: "json",
             data: JSON.stringify({"plumber": $('#pipelinename').val()}),
             success: function(response) {
+                 $('#procnwpipe').css('display', 'block')
+        $('#savingprocnwpipe').css('display', 'none')
+
                 if (response.status == 'succesful') {
                     $('#newpipeid').val(response['id']);
                     $('#create-pipeline').dialog('open');
@@ -760,6 +764,7 @@ function addinputs() {
     if (!$('#inputname').val() || !$('#pipelinename').val() || !$('#parent_json_value').val()) {
         alert('Please Enter Input Name & JSON Payload')
     } else {
+        $('.sbmtbtntxt').html('Saving..');
         $.ajax({
             url: 'http://spark.noip.me:180/plumber/v1/createModel',
             type: 'POST',
@@ -768,6 +773,8 @@ function addinputs() {
             data: JSON.stringify({"plumber": $('#pipelinename').val(), "title": $('#inputname').val(), "parentModel": "", "data": JSON.parse($('#parent_json_value').val())}),
             success: function(response) {
                 if (response.status == 'update successful' && response.id) {
+                            $('.sbmtbtntxt').html('Submit');
+
                     $('#dialog_simple').dialog('open');
                 } else if (response.id == '') {
                     alert('Unable to save inputs');
@@ -808,18 +815,18 @@ function  showjoininputboxfinal() {
         alert('first Select Input');
     }
 
-
+$('#wid-id-rgt-inputs').focus()
 }
 
 function joinprogressshow() {
     if ($('#available_inputs2').val() != '') {
         $('#sqlpreview').css('display', 'block');
-        $('#wid-id-joinprv').css('display', 'block');
+//        $('#wid-id-joinprv').css('display', 'block');
 
     } else {
         alert('Select Input to JOIN')
     }
-
+$('#sqlpreview').focus();
 }
 
 //set selected input
@@ -868,6 +875,7 @@ function fillinput(e, isinput) {
     $('#wid-id-joinprv').hide();
     $('#select-query-build').removeAttr('disabled');
     updateJoinInputList();
+    $('#wid-id-rgt').focus();
 
 
 }
@@ -919,6 +927,9 @@ function updateSql(e) {
 
     var sqlObjSelect = '';
     var tabel = $('#firstinputname').val();
+    if(tabel==''){
+    var tabel = $('#firstinputnametext').val();
+    }
     jQuery.each(countArray, function(i, val) {
         if (jQuery('#parent_radio_' + val).prop('checked')) {
             var fieldname = $('#field_' + val).html();
@@ -944,6 +955,7 @@ function updateSql(e) {
     jQuery('.sql-data').find('#code').addClass('common-sql-pick');
     jQuery('#sqlpreview').find('#code').removeClass('common-sql-pick');
     jQuery('.sql-data').find('#code').val(sqlObjSelect.toString());
+     $('#prvbx').focus();
 }
 function resetSql() {
     sqlObjSelect = '';
@@ -954,9 +966,15 @@ function createJoinSql() {
     finalStageInputs = {};
     var sqlObjSelect = '';
     var tabel1 = $('#firstinputname').val();
+    if(tabel1==''){
+            var tabel1 = $('#firstinputnametext').val();
+    }
     var selectedFieldTable1 = 0;
     var selectedFieldTable2 = 0;
     var tabel2 = $('#available_inputs :selected').text();
+    if(tabel2==''){
+    var tabel2 = $('#available_inputs2 :selected').text();
+    }
     var joinColumn1 = $('#firstinputcolumns').val();
     var joinCodition = $('#conditionsselect').val();
     var joinColumn2 = $('#secondinputcolumns').val();
